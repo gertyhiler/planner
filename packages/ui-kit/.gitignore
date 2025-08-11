@@ -1,0 +1,16 @@
+# Node modules
+/node_modules/
+
+# Builds artefacts
+/dist/
+storybook-static
+build*.log
+
+# System shit
+.DS_Store
+
+# env
+.env.local*
+
+# Package manager
+.npmrc

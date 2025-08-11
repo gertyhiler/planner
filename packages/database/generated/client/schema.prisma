@@ -1,0 +1,307 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/client"
+}
+
+generator zod {
+  provider              = "zod-prisma"
+  output                = "../models/zod"
+  imports               = "null"
+  useDecimalJs          = "true"
+  modelCase             = "PascalCase"
+  modelSuffix           = "Model"
+  prismaJsonNullability = "true"
+  relationModel         = "true"
+}
+
+// Демо режим - используем SQLite для всех приложений
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Пользователи
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  image     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Связи
+  tasks    Task[]
+  projects Project[]
+  areas    Area[]
+
+  // NextAuth
+  accounts Account[]
+  sessions Session[]
+
+  @@map("users")
+}
+
+// Задачи
+model Task {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  type        String?
+  status      String    @default("ACTIVE") // TaskStatus
+  priority    String    @default("MEDIUM") // Priority
+  startDate   DateTime?
+  endDate     DateTime?
+  allDay      Boolean   @default(false)
+  position    Int?
+  sort        Int?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Связи
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  projectId String?
+  project   Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+
+  areaId String?
+  area   Area?   @relation(fields: [areaId], references: [id], onDelete: SetNull)
+
+  sectionId String?
+  section   Section? @relation(fields: [sectionId], references: [id], onDelete: SetNull)
+
+  parentTaskId String?
+  parentTask   Task?   @relation("TaskSubtasks", fields: [parentTaskId], references: [id], onDelete: SetNull)
+  subtasks     Task[]  @relation("TaskSubtasks")
+
+  calendarId String?
+  calendar   Calendar? @relation(fields: [calendarId], references: [id], onDelete: SetNull)
+
+  recurrenceId String?
+  recurrence   Recurrence? @relation(fields: [recurrenceId], references: [id], onDelete: SetNull)
+
+  checklistItems ChecklistItem[]
+  tags           Tag[]
+
+  // Поля для синхронизации
+  syncId    String?   @unique
+  lastSync  DateTime?
+  isDeleted Boolean   @default(false)
+  version   Int       @default(1)
+
+  @@map("tasks")
+}
+
+// Проекты
+model Project {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  color       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Связи
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  tasks    Task[]
+  sections Section[]
+
+  // Поля для синхронизации
+  syncId    String?   @unique
+  lastSync  DateTime?
+  isDeleted Boolean   @default(false)
+  version   Int       @default(1)
+
+  @@map("projects")
+}
+
+// Области
+model Area {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  color       String?
+  position    Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Связи
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  tasks Task[]
+
+  // Поля для синхронизации
+  syncId    String?   @unique
+  lastSync  DateTime?
+  isDeleted Boolean   @default(false)
+  version   Int       @default(1)
+
+  @@map("areas")
+}
+
+// Секции проектов
+model Section {
+  id        String   @id @default(cuid())
+  name      String
+  position  Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Связи
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  tasks Task[]
+
+  // Поля для синхронизации
+  syncId    String?   @unique
+  lastSync  DateTime?
+  isDeleted Boolean   @default(false)
+  version   Int       @default(1)
+
+  @@map("sections")
+}
+
+// Календари
+model Calendar {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  color       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Связи
+  tasks Task[]
+
+  // Поля для синхронизации
+  syncId    String?   @unique
+  lastSync  DateTime?
+  isDeleted Boolean   @default(false)
+  version   Int       @default(1)
+
+  @@map("calendars")
+}
+
+// Элементы чеклиста
+model ChecklistItem {
+  id        String   @id @default(cuid())
+  text      String
+  completed Boolean  @default(false)
+  position  Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Связи
+  taskId String
+  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  // Поля для синхронизации
+  syncId    String?   @unique
+  lastSync  DateTime?
+  isDeleted Boolean   @default(false)
+  version   Int       @default(1)
+
+  @@map("checklist_items")
+}
+
+// Теги
+model Tag {
+  id        String   @id @default(cuid())
+  name      String
+  color     String?
+  sort      Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Связи
+  tasks Task[]
+
+  // Поля для синхронизации
+  syncId    String?   @unique
+  lastSync  DateTime?
+  isDeleted Boolean   @default(false)
+  version   Int       @default(1)
+
+  @@map("tags")
+}
+
+// Повторения
+model Recurrence {
+  id        String    @id @default(cuid())
+  type      String // daily, weekly, monthly, yearly
+  interval  Int       @default(1)
+  endDate   DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  // Связи
+  tasks Task[]
+
+  // Поля для синхронизации
+  syncId    String?   @unique
+  lastSync  DateTime?
+  isDeleted Boolean   @default(false)
+  version   Int       @default(1)
+
+  @@map("recurrences")
+}
+
+// Лог синхронизации
+model SyncLog {
+  id         String   @id @default(cuid())
+  entityId   String
+  entityType String
+  operation  String // CREATE, UPDATE, DELETE
+  data       String // JSON
+  timestamp  DateTime @default(now())
+  synced     Boolean  @default(false)
+
+  @@map("sync_logs")
+}
+
+// NextAuth модели
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}

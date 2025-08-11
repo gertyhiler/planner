@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "components/*": ["./src/shared/components/*"],
+      "utils/*": ["./src/shared/lib/utils/*"],
+      "ui/*": ["./src/shared/ui/*"],
+      "lib/*": ["./src/shared/lib/*"],
+      "hooks/*": ["./src/shared/hooks/*"],
+      "icons/*": ["./src/shared/icons/*"],
+      "mock/*": ["./src/shared/mock/*"],
+      "types/*": ["./src/shared/types/*"],
+      "shared/*": ["./src/shared/*"],
+      "pages/*": ["./src/_pages/*"],
+      "app/*": ["./src/app/*"],
+      "widgets/*": ["./src/widgets/*"],
+      "features/*": ["./src/features/*"],
+      "entity/*": ["./src/entity/*"],
+      "@/prisma": ["./src/shared/configs/prisma.server.ts"],
+      "@/auth": ["./src/shared/configs/auth.server.ts"],
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}

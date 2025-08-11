@@ -1,0 +1,21 @@
+{
+  "name": "@planner/api-schema",
+  "version": "0.1.0",
+  "description": "OpenAPI schema and TypeScript types for Planner API",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "generate": "bun src/generate.ts",
+    "validate": "swagger-cli validate generated/openapi.yaml"
+  },
+  "dependencies": {
+    "@planner/database": "workspace:*",
+    "zod": "^4.0.17",
+    "@asteasolutions/zod-to-openapi": "^8.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.0",
+    "swagger-cli": "^4.0.4"
+  }
+}

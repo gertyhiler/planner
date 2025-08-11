@@ -1,0 +1,18 @@
+{
+  "name": "@planner/mobile",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "echo 'Mobile dev script - implement your mobile development here'",
+    "build": "echo 'Mobile build script - implement your build process here'",
+    "start": "echo 'Mobile start script - implement your start process here'",
+    "lint": "echo 'Mobile lint script - implement your linting here'",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist build"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {}
+}
