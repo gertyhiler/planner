@@ -11,11 +11,20 @@ export const UploadChangesRequestSchema = z.object({
   operations: z.array(SyncOperationSchema),
 });
 
+export const UploadChangesResponseSchema = z.object({
+  success: z.boolean(),
+  message: z.string(),
+});
+
 export const SyncChangeSchema = z.object({
   id: z.string(),
   entityType: z.string(),
   operation: z.string(),
   data: z.record(z.string(), z.any()),
+});
+
+export const DownloadChangesRequestSchema = z.object({
+  lastSync: z.date().optional(),
 });
 
 export const DownloadChangesResponseSchema = z.object({
