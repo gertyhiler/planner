@@ -4,7 +4,7 @@ export const SyncOperationSchema = z.object({
   id: z.string(),
   entityType: z.string(),
   operation: z.enum(["CREATE", "UPDATE", "DELETE"]),
-  data: z.record(z.string(), z.any()),
+  // data: z.record(z.string(), z.unknown()),
 });
 
 export const UploadChangesRequestSchema = z.object({
@@ -20,7 +20,7 @@ export const SyncChangeSchema = z.object({
   id: z.string(),
   entityType: z.string(),
   operation: z.string(),
-  data: z.record(z.string(), z.any()),
+  // data: z.record(z.string(), z.unknown()),
 });
 
 export const DownloadChangesRequestSchema = z.object({

@@ -100,7 +100,7 @@ async function start() {
     // Регистрируем OpenAPI маршруты
     const openApiSpecPath = join(
       __dirname,
-      "../node_modules/@planner/api-schema/generated/openapi.yaml"
+      "../node_modules/@planner/api-schema/generated/openapi.json"
     );
 
     await fastify.register(openapiGlue, {

@@ -1323,19 +1323,12 @@
                     "UPDATE",
                     "DELETE"
                   ]
-                },
-                "data": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "nullable": true
-                  }
                 }
               },
               "required": [
                 "id",
                 "entityType",
-                "operation",
-                "data"
+                "operation"
               ]
             }
           }
@@ -1360,19 +1353,12 @@
                 },
                 "operation": {
                   "type": "string"
-                },
-                "data": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "nullable": true
-                  }
                 }
               },
               "required": [
                 "id",
                 "entityType",
-                "operation",
-                "data"
+                "operation"
               ]
             }
           },
