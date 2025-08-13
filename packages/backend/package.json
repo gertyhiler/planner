@@ -10,6 +10,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
+    "@planner/types": "workspace:*",
     "@planner/database": "workspace:*",
     "@planner/api-schema": "workspace:*",
     "fastify": "^4.24.3",

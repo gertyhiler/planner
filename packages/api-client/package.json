@@ -11,7 +11,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@planner/api-schema": "workspace:*"
+    "@planner/api-schema": "workspace:*",
+    "@planner/types": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",

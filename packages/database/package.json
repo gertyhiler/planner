@@ -21,6 +21,7 @@
     "sync:generate": "tsx scripts/generate-sync.ts"
   },
   "dependencies": {
+    "@planner/types": "workspace:*",
     "@prisma/client": "^5.22.0",
     "zod": "^3.23.8",
     "zod-prisma": "^0.5.4"

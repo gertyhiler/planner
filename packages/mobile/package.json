@@ -14,5 +14,8 @@
     "@types/node": "^20.0.0",
     "typescript": "^5.7.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@planner/types": "workspace:*",
+    "@planner/api-client": "workspace:*"
+  }
 }

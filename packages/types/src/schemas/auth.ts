@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { UserModel } from "../generated/models";
 
 export const AuthRequestSchema = z.object({
   email: z.email("Некорректный email"),
@@ -6,12 +7,12 @@ export const AuthRequestSchema = z.object({
 });
 
 export const UserResponseSchema = z.object({
-  id: z.string(),
-  email: z.string(),
-  name: z.string().nullable(),
-  image: z.string().nullable(),
-  createdAt: z.string(),
-  updatedAt: z.string(),
+  id: UserModel.shape.id,
+  email: UserModel.shape.email,
+  name: UserModel.shape.name,
+  image: UserModel.shape.image,
+  createdAt: UserModel.shape.createdAt,
+  updatedAt: UserModel.shape.updatedAt,
 });
 
 export const AuthResponseSchema = z.object({

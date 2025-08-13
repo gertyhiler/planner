@@ -1,12 +1,11 @@
 import * as z from "zod"
-import * as imports from "../../prisma/null"
 import { CompleteTask, RelatedTaskModel } from "./index"
 
-export const CalendarModel = z.object({
+export const TagModel = z.object({
   id: z.string(),
   name: z.string(),
-  description: z.string().nullish(),
   color: z.string().nullish(),
+  sort: z.number().int().nullish(),
   createdAt: z.date(),
   updatedAt: z.date(),
   syncId: z.string().nullish(),
@@ -15,15 +14,15 @@ export const CalendarModel = z.object({
   version: z.number().int(),
 })
 
-export interface CompleteCalendar extends z.infer<typeof CalendarModel> {
+export interface CompleteTag extends z.infer<typeof TagModel> {
   tasks: CompleteTask[]
 }
 
 /**
- * RelatedCalendarModel contains all relations on your model in addition to the scalars
+ * RelatedTagModel contains all relations on your model in addition to the scalars
  *
  * NOTE: Lazy required in case of potential circular dependencies within schema
  */
-export const RelatedCalendarModel: z.ZodSchema<CompleteCalendar> = z.lazy(() => CalendarModel.extend({
+export const RelatedTagModel: z.ZodSchema<CompleteTag> = z.lazy(() => TagModel.extend({
   tasks: RelatedTaskModel.array(),
 }))

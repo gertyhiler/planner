@@ -37,17 +37,17 @@
                 "nullable": true
               },
               "createdAt": {
-                "type": "string"
+                "type": "string",
+                "format": "date"
               },
               "updatedAt": {
-                "type": "string"
+                "type": "string",
+                "format": "date"
               }
             },
             "required": [
               "id",
               "email",
-              "name",
-              "image",
               "createdAt",
               "updatedAt"
             ]
@@ -112,17 +112,17 @@
             "nullable": true
           },
           "createdAt": {
-            "type": "string"
+            "type": "string",
+            "format": "date"
           },
           "updatedAt": {
-            "type": "string"
+            "type": "string",
+            "format": "date"
           }
         },
         "required": [
           "id",
           "email",
-          "name",
-          "image",
           "createdAt",
           "updatedAt"
         ]
@@ -145,35 +145,51 @@
             "nullable": true
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "COMPLETED",
+              "ARCHIVED",
+              "CANCELLED"
+            ]
           },
           "priority": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "LOW",
+              "MEDIUM",
+              "HIGH",
+              "URGENT"
+            ]
           },
           "startDate": {
             "type": "string",
-            "nullable": true
+            "nullable": true,
+            "format": "date"
           },
           "endDate": {
             "type": "string",
-            "nullable": true
+            "nullable": true,
+            "format": "date"
           },
           "allDay": {
             "type": "boolean"
           },
           "position": {
-            "type": "number",
+            "type": "integer",
             "nullable": true
           },
           "sort": {
-            "type": "number",
+            "type": "integer",
             "nullable": true
           },
           "createdAt": {
-            "type": "string"
+            "type": "string",
+            "format": "date"
           },
           "updatedAt": {
-            "type": "string"
+            "type": "string",
+            "format": "date"
           },
           "userId": {
             "type": "string"
@@ -208,13 +224,14 @@
           },
           "lastSync": {
             "type": "string",
-            "nullable": true
+            "nullable": true,
+            "format": "date"
           },
           "isDeleted": {
             "type": "boolean"
           },
           "version": {
-            "type": "number"
+            "type": "integer"
           },
           "user": {
             "type": "object",
@@ -234,17 +251,17 @@
                 "nullable": true
               },
               "createdAt": {
-                "type": "string"
+                "type": "string",
+                "format": "date"
               },
               "updatedAt": {
-                "type": "string"
+                "type": "string",
+                "format": "date"
               }
             },
             "required": [
               "id",
               "email",
-              "name",
-              "image",
               "createdAt",
               "updatedAt"
             ]
@@ -267,10 +284,12 @@
                 "nullable": true
               },
               "createdAt": {
-                "type": "string"
+                "type": "string",
+                "format": "date"
               },
               "updatedAt": {
-                "type": "string"
+                "type": "string",
+                "format": "date"
               },
               "userId": {
                 "type": "string"
@@ -281,25 +300,22 @@
               },
               "lastSync": {
                 "type": "string",
-                "nullable": true
+                "nullable": true,
+                "format": "date"
               },
               "isDeleted": {
                 "type": "boolean"
               },
               "version": {
-                "type": "number"
+                "type": "integer"
               }
             },
             "required": [
               "id",
               "name",
-              "description",
-              "color",
               "createdAt",
               "updatedAt",
               "userId",
-              "syncId",
-              "lastSync",
               "isDeleted",
               "version"
             ]
@@ -322,14 +338,16 @@
                 "nullable": true
               },
               "position": {
-                "type": "number",
+                "type": "integer",
                 "nullable": true
               },
               "createdAt": {
-                "type": "string"
+                "type": "string",
+                "format": "date"
               },
               "updatedAt": {
-                "type": "string"
+                "type": "string",
+                "format": "date"
               },
               "userId": {
                 "type": "string"
@@ -340,26 +358,22 @@
               },
               "lastSync": {
                 "type": "string",
-                "nullable": true
+                "nullable": true,
+                "format": "date"
               },
               "isDeleted": {
                 "type": "boolean"
               },
               "version": {
-                "type": "number"
+                "type": "integer"
               }
             },
             "required": [
               "id",
               "name",
-              "description",
-              "color",
-              "position",
               "createdAt",
               "updatedAt",
               "userId",
-              "syncId",
-              "lastSync",
               "isDeleted",
               "version"
             ]
@@ -368,26 +382,10 @@
         "required": [
           "id",
           "name",
-          "description",
-          "type",
-          "status",
-          "priority",
-          "startDate",
-          "endDate",
           "allDay",
-          "position",
-          "sort",
           "createdAt",
           "updatedAt",
           "userId",
-          "projectId",
-          "areaId",
-          "sectionId",
-          "parentTaskId",
-          "calendarId",
-          "recurrenceId",
-          "syncId",
-          "lastSync",
           "isDeleted",
           "version"
         ]
@@ -400,7 +398,8 @@
             "minLength": 1
           },
           "description": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "status": {
             "type": "string",
@@ -424,27 +423,33 @@
           },
           "startDate": {
             "type": "string",
-            "format": "date-time"
+            "nullable": true,
+            "format": "date"
           },
           "endDate": {
             "type": "string",
-            "format": "date-time"
+            "nullable": true,
+            "format": "date"
           },
           "allDay": {
             "type": "boolean",
             "default": false
           },
           "projectId": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "areaId": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "sectionId": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "parentTaskId": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           }
         },
         "required": [
@@ -459,7 +464,8 @@
             "minLength": 1
           },
           "description": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "status": {
             "type": "string",
@@ -481,26 +487,32 @@
           },
           "startDate": {
             "type": "string",
-            "format": "date-time"
+            "nullable": true,
+            "format": "date"
           },
           "endDate": {
             "type": "string",
-            "format": "date-time"
+            "nullable": true,
+            "format": "date"
           },
           "allDay": {
             "type": "boolean"
           },
           "projectId": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "areaId": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "sectionId": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "parentTaskId": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           }
         }
       },
@@ -522,10 +534,12 @@
             "nullable": true
           },
           "createdAt": {
-            "type": "string"
+            "type": "string",
+            "format": "date"
           },
           "updatedAt": {
-            "type": "string"
+            "type": "string",
+            "format": "date"
           },
           "userId": {
             "type": "string"
@@ -536,13 +550,14 @@
           },
           "lastSync": {
             "type": "string",
-            "nullable": true
+            "nullable": true,
+            "format": "date"
           },
           "isDeleted": {
             "type": "boolean"
           },
           "version": {
-            "type": "number"
+            "type": "integer"
           },
           "user": {
             "type": "object",
@@ -562,17 +577,17 @@
                 "nullable": true
               },
               "createdAt": {
-                "type": "string"
+                "type": "string",
+                "format": "date"
               },
               "updatedAt": {
-                "type": "string"
+                "type": "string",
+                "format": "date"
               }
             },
             "required": [
               "id",
               "email",
-              "name",
-              "image",
               "createdAt",
               "updatedAt"
             ]
@@ -597,35 +612,51 @@
                   "nullable": true
                 },
                 "status": {
-                  "type": "string"
+                  "type": "string",
+                  "enum": [
+                    "ACTIVE",
+                    "COMPLETED",
+                    "ARCHIVED",
+                    "CANCELLED"
+                  ]
                 },
                 "priority": {
-                  "type": "string"
+                  "type": "string",
+                  "enum": [
+                    "LOW",
+                    "MEDIUM",
+                    "HIGH",
+                    "URGENT"
+                  ]
                 },
                 "startDate": {
                   "type": "string",
-                  "nullable": true
+                  "nullable": true,
+                  "format": "date"
                 },
                 "endDate": {
                   "type": "string",
-                  "nullable": true
+                  "nullable": true,
+                  "format": "date"
                 },
                 "allDay": {
                   "type": "boolean"
                 },
                 "position": {
-                  "type": "number",
+                  "type": "integer",
                   "nullable": true
                 },
                 "sort": {
-                  "type": "number",
+                  "type": "integer",
                   "nullable": true
                 },
                 "createdAt": {
-                  "type": "string"
+                  "type": "string",
+                  "format": "date"
                 },
                 "updatedAt": {
-                  "type": "string"
+                  "type": "string",
+                  "format": "date"
                 },
                 "userId": {
                   "type": "string"
@@ -660,13 +691,14 @@
                 },
                 "lastSync": {
                   "type": "string",
-                  "nullable": true
+                  "nullable": true,
+                  "format": "date"
                 },
                 "isDeleted": {
                   "type": "boolean"
                 },
                 "version": {
-                  "type": "number"
+                  "type": "integer"
                 },
                 "user": {
                   "type": "object",
@@ -686,17 +718,17 @@
                       "nullable": true
                     },
                     "createdAt": {
-                      "type": "string"
+                      "type": "string",
+                      "format": "date"
                     },
                     "updatedAt": {
-                      "type": "string"
+                      "type": "string",
+                      "format": "date"
                     }
                   },
                   "required": [
                     "id",
                     "email",
-                    "name",
-                    "image",
                     "createdAt",
                     "updatedAt"
                   ]
@@ -719,10 +751,12 @@
                       "nullable": true
                     },
                     "createdAt": {
-                      "type": "string"
+                      "type": "string",
+                      "format": "date"
                     },
                     "updatedAt": {
-                      "type": "string"
+                      "type": "string",
+                      "format": "date"
                     },
                     "userId": {
                       "type": "string"
@@ -733,25 +767,22 @@
                     },
                     "lastSync": {
                       "type": "string",
-                      "nullable": true
+                      "nullable": true,
+                      "format": "date"
                     },
                     "isDeleted": {
                       "type": "boolean"
                     },
                     "version": {
-                      "type": "number"
+                      "type": "integer"
                     }
                   },
                   "required": [
                     "id",
                     "name",
-                    "description",
-                    "color",
                     "createdAt",
                     "updatedAt",
                     "userId",
-                    "syncId",
-                    "lastSync",
                     "isDeleted",
                     "version"
                   ]
@@ -774,14 +805,16 @@
                       "nullable": true
                     },
                     "position": {
-                      "type": "number",
+                      "type": "integer",
                       "nullable": true
                     },
                     "createdAt": {
-                      "type": "string"
+                      "type": "string",
+                      "format": "date"
                     },
                     "updatedAt": {
-                      "type": "string"
+                      "type": "string",
+                      "format": "date"
                     },
                     "userId": {
                       "type": "string"
@@ -792,26 +825,22 @@
                     },
                     "lastSync": {
                       "type": "string",
-                      "nullable": true
+                      "nullable": true,
+                      "format": "date"
                     },
                     "isDeleted": {
                       "type": "boolean"
                     },
                     "version": {
-                      "type": "number"
+                      "type": "integer"
                     }
                   },
                   "required": [
                     "id",
                     "name",
-                    "description",
-                    "color",
-                    "position",
                     "createdAt",
                     "updatedAt",
                     "userId",
-                    "syncId",
-                    "lastSync",
                     "isDeleted",
                     "version"
                   ]
@@ -820,26 +849,10 @@
               "required": [
                 "id",
                 "name",
-                "description",
-                "type",
-                "status",
-                "priority",
-                "startDate",
-                "endDate",
                 "allDay",
-                "position",
-                "sort",
                 "createdAt",
                 "updatedAt",
                 "userId",
-                "projectId",
-                "areaId",
-                "sectionId",
-                "parentTaskId",
-                "calendarId",
-                "recurrenceId",
-                "syncId",
-                "lastSync",
                 "isDeleted",
                 "version"
               ]
@@ -849,13 +862,9 @@
         "required": [
           "id",
           "name",
-          "description",
-          "color",
           "createdAt",
           "updatedAt",
           "userId",
-          "syncId",
-          "lastSync",
           "isDeleted",
           "version"
         ]
@@ -868,10 +877,12 @@
             "minLength": 1
           },
           "description": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "color": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           }
         },
         "required": [
@@ -886,10 +897,12 @@
             "minLength": 1
           },
           "description": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "color": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           }
         }
       },
@@ -911,14 +924,16 @@
             "nullable": true
           },
           "position": {
-            "type": "number",
+            "type": "integer",
             "nullable": true
           },
           "createdAt": {
-            "type": "string"
+            "type": "string",
+            "format": "date"
           },
           "updatedAt": {
-            "type": "string"
+            "type": "string",
+            "format": "date"
           },
           "userId": {
             "type": "string"
@@ -929,13 +944,14 @@
           },
           "lastSync": {
             "type": "string",
-            "nullable": true
+            "nullable": true,
+            "format": "date"
           },
           "isDeleted": {
             "type": "boolean"
           },
           "version": {
-            "type": "number"
+            "type": "integer"
           },
           "user": {
             "type": "object",
@@ -955,17 +971,17 @@
                 "nullable": true
               },
               "createdAt": {
-                "type": "string"
+                "type": "string",
+                "format": "date"
               },
               "updatedAt": {
-                "type": "string"
+                "type": "string",
+                "format": "date"
               }
             },
             "required": [
               "id",
               "email",
-              "name",
-              "image",
               "createdAt",
               "updatedAt"
             ]
@@ -990,35 +1006,51 @@
                   "nullable": true
                 },
                 "status": {
-                  "type": "string"
+                  "type": "string",
+                  "enum": [
+                    "ACTIVE",
+                    "COMPLETED",
+                    "ARCHIVED",
+                    "CANCELLED"
+                  ]
                 },
                 "priority": {
-                  "type": "string"
+                  "type": "string",
+                  "enum": [
+                    "LOW",
+                    "MEDIUM",
+                    "HIGH",
+                    "URGENT"
+                  ]
                 },
                 "startDate": {
                   "type": "string",
-                  "nullable": true
+                  "nullable": true,
+                  "format": "date"
                 },
                 "endDate": {
                   "type": "string",
-                  "nullable": true
+                  "nullable": true,
+                  "format": "date"
                 },
                 "allDay": {
                   "type": "boolean"
                 },
                 "position": {
-                  "type": "number",
+                  "type": "integer",
                   "nullable": true
                 },
                 "sort": {
-                  "type": "number",
+                  "type": "integer",
                   "nullable": true
                 },
                 "createdAt": {
-                  "type": "string"
+                  "type": "string",
+                  "format": "date"
                 },
                 "updatedAt": {
-                  "type": "string"
+                  "type": "string",
+                  "format": "date"
                 },
                 "userId": {
                   "type": "string"
@@ -1053,13 +1085,14 @@
                 },
                 "lastSync": {
                   "type": "string",
-                  "nullable": true
+                  "nullable": true,
+                  "format": "date"
                 },
                 "isDeleted": {
                   "type": "boolean"
                 },
                 "version": {
-                  "type": "number"
+                  "type": "integer"
                 },
                 "user": {
                   "type": "object",
@@ -1079,17 +1112,17 @@
                       "nullable": true
                     },
                     "createdAt": {
-                      "type": "string"
+                      "type": "string",
+                      "format": "date"
                     },
                     "updatedAt": {
-                      "type": "string"
+                      "type": "string",
+                      "format": "date"
                     }
                   },
                   "required": [
                     "id",
                     "email",
-                    "name",
-                    "image",
                     "createdAt",
                     "updatedAt"
                   ]
@@ -1112,10 +1145,12 @@
                       "nullable": true
                     },
                     "createdAt": {
-                      "type": "string"
+                      "type": "string",
+                      "format": "date"
                     },
                     "updatedAt": {
-                      "type": "string"
+                      "type": "string",
+                      "format": "date"
                     },
                     "userId": {
                       "type": "string"
@@ -1126,25 +1161,22 @@
                     },
                     "lastSync": {
                       "type": "string",
-                      "nullable": true
+                      "nullable": true,
+                      "format": "date"
                     },
                     "isDeleted": {
                       "type": "boolean"
                     },
                     "version": {
-                      "type": "number"
+                      "type": "integer"
                     }
                   },
                   "required": [
                     "id",
                     "name",
-                    "description",
-                    "color",
                     "createdAt",
                     "updatedAt",
                     "userId",
-                    "syncId",
-                    "lastSync",
                     "isDeleted",
                     "version"
                   ]
@@ -1167,14 +1199,16 @@
                       "nullable": true
                     },
                     "position": {
-                      "type": "number",
+                      "type": "integer",
                       "nullable": true
                     },
                     "createdAt": {
-                      "type": "string"
+                      "type": "string",
+                      "format": "date"
                     },
                     "updatedAt": {
-                      "type": "string"
+                      "type": "string",
+                      "format": "date"
                     },
                     "userId": {
                       "type": "string"
@@ -1185,26 +1219,22 @@
                     },
                     "lastSync": {
                       "type": "string",
-                      "nullable": true
+                      "nullable": true,
+                      "format": "date"
                     },
                     "isDeleted": {
                       "type": "boolean"
                     },
                     "version": {
-                      "type": "number"
+                      "type": "integer"
                     }
                   },
                   "required": [
                     "id",
                     "name",
-                    "description",
-                    "color",
-                    "position",
                     "createdAt",
                     "updatedAt",
                     "userId",
-                    "syncId",
-                    "lastSync",
                     "isDeleted",
                     "version"
                   ]
@@ -1213,26 +1243,10 @@
               "required": [
                 "id",
                 "name",
-                "description",
-                "type",
-                "status",
-                "priority",
-                "startDate",
-                "endDate",
                 "allDay",
-                "position",
-                "sort",
                 "createdAt",
                 "updatedAt",
                 "userId",
-                "projectId",
-                "areaId",
-                "sectionId",
-                "parentTaskId",
-                "calendarId",
-                "recurrenceId",
-                "syncId",
-                "lastSync",
                 "isDeleted",
                 "version"
               ]
@@ -1242,14 +1256,9 @@
         "required": [
           "id",
           "name",
-          "description",
-          "color",
-          "position",
           "createdAt",
           "updatedAt",
           "userId",
-          "syncId",
-          "lastSync",
           "isDeleted",
           "version"
         ]
@@ -1262,10 +1271,12 @@
             "minLength": 1
           },
           "description": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "color": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           }
         },
         "required": [
@@ -1280,10 +1291,12 @@
             "minLength": 1
           },
           "description": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "color": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           }
         }
       },
@@ -1510,7 +1523,8 @@
           },
           {
             "schema": {
-              "type": "string"
+              "type": "string",
+              "nullable": true
             },
             "required": false,
             "name": "projectId",
@@ -1623,7 +1637,8 @@
           },
           {
             "schema": {
-              "type": "string"
+              "type": "string",
+              "nullable": true
             },
             "required": false,
             "name": "projectId",

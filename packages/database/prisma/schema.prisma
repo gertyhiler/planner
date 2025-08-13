@@ -8,8 +8,7 @@ generator client {
 
 generator zod {
   provider              = "zod-prisma"
-  output                = "../models/zod"
-  imports               = "null"
+  output                = "../../types/src/generated/models"
   useDecimalJs          = "true"
   modelCase             = "PascalCase"
   modelSuffix           = "Model"

@@ -1,13 +1,11 @@
 import * as z from "zod"
-import * as imports from "../../prisma/null"
-import { CompleteUser, RelatedUserModel, CompleteTask, RelatedTaskModel } from "./index"
+import { CompleteUser, RelatedUserModel, CompleteTask, RelatedTaskModel, CompleteSection, RelatedSectionModel } from "./index"
 
-export const AreaModel = z.object({
+export const ProjectModel = z.object({
   id: z.string(),
   name: z.string(),
   description: z.string().nullish(),
   color: z.string().nullish(),
-  position: z.number().int().nullish(),
   createdAt: z.date(),
   updatedAt: z.date(),
   userId: z.string(),
@@ -17,17 +15,19 @@ export const AreaModel = z.object({
   version: z.number().int(),
 })
 
-export interface CompleteArea extends z.infer<typeof AreaModel> {
+export interface CompleteProject extends z.infer<typeof ProjectModel> {
   user: CompleteUser
   tasks: CompleteTask[]
+  sections: CompleteSection[]
 }
 
 /**
- * RelatedAreaModel contains all relations on your model in addition to the scalars
+ * RelatedProjectModel contains all relations on your model in addition to the scalars
  *
  * NOTE: Lazy required in case of potential circular dependencies within schema
  */
-export const RelatedAreaModel: z.ZodSchema<CompleteArea> = z.lazy(() => AreaModel.extend({
+export const RelatedProjectModel: z.ZodSchema<CompleteProject> = z.lazy(() => ProjectModel.extend({
   user: RelatedUserModel,
   tasks: RelatedTaskModel.array(),
+  sections: RelatedSectionModel.array(),
 }))

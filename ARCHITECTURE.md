@@ -79,6 +79,112 @@ Planner - это планировщик задач с поддержкой web, 
 └── React Native     # Mobile framework
 ```
 
+## Система типов
+
+### Архитектура типов
+
+```
+Prisma Schema (database)
+       ↓
+Zod Schemas (@planner/types)
+       ↓
+OpenAPI Schema (@planner/api-schema)
+       ↓
+TypeScript SDK (@planner/api-client)
+       ↓
+Client Applications (web, app, mobile)
+```
+
+### 1. **Prisma Schema** - Источник истины для БД
+
+```prisma
+// packages/database/prisma/schema.prisma
+model Task {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  status      TaskStatus
+  priority    Priority
+  // ... другие поля
+}
+```
+
+### 2. **Zod Schemas** - Валидация и типы
+
+```typescript
+// packages/types/src/schemas/tasks.ts
+import { z } from "zod";
+
+export const TaskSchema = z.object({
+  id: z.string(),
+  title: z.string().min(1),
+  description: z.string().optional(),
+  status: z.enum(["TODO", "IN_PROGRESS", "DONE"]),
+  priority: z.enum(["LOW", "MEDIUM", "HIGH"]),
+});
+
+export type Task = z.infer<typeof TaskSchema>;
+```
+
+### 3. **OpenAPI Schema** - API документация
+
+```typescript
+// packages/api-schema/src/index.ts
+registry.registerPath({
+  method: "post",
+  path: "/api/tasks",
+  request: {
+    body: {
+      content: {
+        "application/json": {
+          schema: CreateTaskRequestSchema.openapi("CreateTaskRequest"),
+        },
+      },
+    },
+  },
+  responses: {
+    201: {
+      content: {
+        "application/json": {
+          schema: TaskResponseSchema.openapi("TaskResponse"),
+        },
+      },
+    },
+  },
+});
+```
+
+### 4. **TypeScript SDK** - Автогенерированный клиент
+
+```typescript
+// packages/api-client/generated/services/TasksService.ts
+export class TasksService {
+  static async createTask(
+    requestBody: CreateTaskRequest
+  ): Promise<TaskResponse> {
+    // Автогенерированный код
+  }
+
+  static async getTasks(): Promise<TaskResponse[]> {
+    // Автогенерированный код
+  }
+}
+```
+
+### 5. **Использование в приложениях**
+
+```typescript
+// В любом клиентском приложении
+import { TasksService } from "@planner/api-client";
+import type { Task } from "@planner/types";
+
+const task: Task = await TasksService.createTask({
+  title: "Новая задача",
+  status: "TODO",
+  priority: "MEDIUM",
+});
+```
+
 ## Потоки данных
 
 ### Web приложение (тонкий клиент)
@@ -97,17 +203,17 @@ Planner - это планировщик задач с поддержкой web, 
 │Desktop/Mobile│───▶│Database SDK │───▶│ SQLite      │
 │             │    │             │    │ (Local)     │
 └─────────────┘    └─────────────┘    └─────────────┘
-       │                   │                   │
-       │                   ▼                   │
-       │            ┌─────────────┐            │
-       └───────────▶│Sync Manager │◀───────────┘
-                    └─────────────┘
-                           │
-                           ▼
-                    ┌─────────────┐    ┌─────────────┐
-                    │   Backend   │───▶│ PostgreSQL  │
-                    │             │    │   (Cloud)   │
-                    └─────────────┘    └─────────────┘
+        │                   │                   │
+        │                   ▼                   │
+        │            ┌─────────────┐            │
+        └───────────▶│Sync Manager │◀───────────┘
+                     └─────────────┘
+                            │
+                            ▼
+                     ┌─────────────┐    ┌─────────────┐
+                     │   Backend   │───▶│ PostgreSQL  │
+                     │             │    │   (Cloud)   │
+                     └─────────────┘    └─────────────┘
 ```
 
 ## База данных

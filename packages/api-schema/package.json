@@ -9,6 +9,7 @@
     "validate": "swagger-cli validate generated/openapi.json"
   },
   "dependencies": {
+    "@planner/types": "workspace:*",
     "@planner/database": "workspace:*",
     "zod": "^4.0.17",
     "@asteasolutions/zod-to-openapi": "^8.1.0"

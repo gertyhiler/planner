@@ -33,7 +33,7 @@ import {
   DeleteAreaParamsSchema,
   UploadChangesResponseSchema,
   DownloadChangesRequestSchema,
-} from "./schemas";
+} from "@planner/types";
 import z from "zod";
 // Создаем реестр для OpenAPI схем
 const registry = new OpenAPIRegistry();
