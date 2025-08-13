@@ -1496,14 +1496,6 @@
         "parameters": [
           {
             "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "name": "id",
-            "in": "query"
-          },
-          {
-            "schema": {
               "type": "string",
               "enum": [
                 "ACTIVE",
@@ -1627,7 +1619,7 @@
             },
             "required": false,
             "name": "status",
-            "in": "path"
+            "in": "query"
           },
           {
             "schema": {
@@ -1641,7 +1633,7 @@
             },
             "required": false,
             "name": "priority",
-            "in": "path"
+            "in": "query"
           },
           {
             "schema": {
@@ -1649,7 +1641,7 @@
             },
             "required": false,
             "name": "projectId",
-            "in": "path"
+            "in": "query"
           }
         ],
         "responses": {

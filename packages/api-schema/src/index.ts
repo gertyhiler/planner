@@ -34,6 +34,7 @@ import {
   UploadChangesResponseSchema,
   DownloadChangesRequestSchema,
 } from "./schemas";
+import z from "zod";
 // Создаем реестр для OpenAPI схем
 const registry = new OpenAPIRegistry();
 
@@ -168,7 +169,10 @@ registry.registerPath({
   tags: ["Tasks"],
   security: [{ bearerAuth: [] }],
   request: {
-    params: TaskParamsSchema.openapi("TaskParams"),
+    params: z.object({
+      id: z.string(),
+    }),
+    query: TaskParamsSchema.openapi("TaskParams"),
   },
   responses: {
     200: {

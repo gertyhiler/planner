@@ -94,7 +94,6 @@ export const TaskResponseSchema = z.object({
 });
 
 export const TaskParamsSchema = z.object({
-  id: z.string(),
   status: TaskStatusSchema.optional(),
   priority: PrioritySchema.optional(),
   projectId: z.string().optional(),
