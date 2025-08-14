@@ -4,15 +4,18 @@ import {
   areaService,
   userService,
 } from "@planner/database";
+import { AuthRequestSchema } from "@planner/types";
 import bcrypt from "bcryptjs";
+import { FastifyRequest, FastifyReply } from "fastify";
 
 export class PlannerService {
   // Auth handlers
-  async auth(request: any, reply: any) {
-    const { email, password } = request.body;
+  async auth(request: FastifyRequest, reply: FastifyReply) {
+    const body = request.body;
 
     try {
-      const user = await userService.getUserByEmail(email);
+      const parsedBody = AuthRequestSchema.parse(body);
+      const user = await userService.getUserByEmail(parsedBody.email);
 
       if (!user) {
         return reply.status(401).send({
@@ -22,9 +25,7 @@ export class PlannerService {
         });
       }
 
-      // Временно используем простую проверку для демо
-      // В реальном проекте нужно добавить поле password в User модель
-      if (password !== "password123") {
+      if (!bcrypt.compareSync(parsedBody.password, user.password ?? "")) {
         return reply.status(401).send({
           error: "Unauthorized",
           message: "Неверный email или пароль",

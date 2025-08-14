@@ -125,7 +125,12 @@ exports.Prisma.UserScalarFieldEnum = {
   name: 'name',
   image: 'image',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  password: 'password',
+  emailVerified: 'emailVerified',
+  emailVerificationToken: 'emailVerificationToken',
+  passwordResetToken: 'passwordResetToken',
+  passwordResetExpires: 'passwordResetExpires'
 };
 
 exports.Prisma.TaskScalarFieldEnum = {
@@ -260,32 +265,24 @@ exports.Prisma.SyncLogScalarFieldEnum = {
   synced: 'synced'
 };
 
-exports.Prisma.AccountScalarFieldEnum = {
+exports.Prisma.AuthSessionScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  type: 'type',
-  provider: 'provider',
-  providerAccountId: 'providerAccountId',
-  refresh_token: 'refresh_token',
-  access_token: 'access_token',
-  expires_at: 'expires_at',
-  token_type: 'token_type',
-  scope: 'scope',
-  id_token: 'id_token',
-  session_state: 'session_state'
-};
-
-exports.Prisma.SessionScalarFieldEnum = {
-  id: 'id',
-  sessionToken: 'sessionToken',
-  userId: 'userId',
-  expires: 'expires'
-};
-
-exports.Prisma.VerificationTokenScalarFieldEnum = {
-  identifier: 'identifier',
   token: 'token',
-  expires: 'expires'
+  expires: 'expires',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.OAuthProviderScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  provider: 'provider',
+  providerUserId: 'providerUserId',
+  accessToken: 'accessToken',
+  refreshToken: 'refreshToken',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -310,9 +307,8 @@ exports.Prisma.ModelName = {
   Tag: 'Tag',
   Recurrence: 'Recurrence',
   SyncLog: 'SyncLog',
-  Account: 'Account',
-  Session: 'Session',
-  VerificationToken: 'VerificationToken'
+  AuthSession: 'AuthSession',
+  OAuthProvider: 'OAuthProvider'
 };
 
 /**

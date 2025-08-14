@@ -60,8 +60,7 @@ export type {
   ChecklistItem,
   Tag,
   Recurrence,
-  Account,
-  Session,
-  VerificationToken,
+  AuthSession,
+  OAuthProvider,
   SyncLog,
 } from "../generated/client";

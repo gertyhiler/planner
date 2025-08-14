@@ -1,5 +1,5 @@
 import * as z from "zod"
-import { CompleteTask, RelatedTaskModel, CompleteProject, RelatedProjectModel, CompleteArea, RelatedAreaModel, CompleteAccount, RelatedAccountModel, CompleteSession, RelatedSessionModel } from "./index"
+import { CompleteTask, RelatedTaskModel, CompleteProject, RelatedProjectModel, CompleteArea, RelatedAreaModel, CompleteAuthSession, RelatedAuthSessionModel, CompleteOAuthProvider, RelatedOAuthProviderModel } from "./index"
 
 export const UserModel = z.object({
   id: z.string(),
@@ -8,14 +8,19 @@ export const UserModel = z.object({
   image: z.string().nullish(),
   createdAt: z.date(),
   updatedAt: z.date(),
+  password: z.string().nullish(),
+  emailVerified: z.date().nullish(),
+  emailVerificationToken: z.string().nullish(),
+  passwordResetToken: z.string().nullish(),
+  passwordResetExpires: z.date().nullish(),
 })
 
 export interface CompleteUser extends z.infer<typeof UserModel> {
   tasks: CompleteTask[]
   projects: CompleteProject[]
   areas: CompleteArea[]
-  accounts: CompleteAccount[]
-  sessions: CompleteSession[]
+  authSessions: CompleteAuthSession[]
+  oauthProviders: CompleteOAuthProvider[]
 }
 
 /**
@@ -27,6 +32,6 @@ export const RelatedUserModel: z.ZodSchema<CompleteUser> = z.lazy(() => UserMode
   tasks: RelatedTaskModel.array(),
   projects: RelatedProjectModel.array(),
   areas: RelatedAreaModel.array(),
-  accounts: RelatedAccountModel.array(),
-  sessions: RelatedSessionModel.array(),
+  authSessions: RelatedAuthSessionModel.array(),
+  oauthProviders: RelatedOAuthProviderModel.array(),
 }))
