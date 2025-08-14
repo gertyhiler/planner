@@ -48,6 +48,7 @@ registry.registerComponent("securitySchemes", "bearerAuth", {
 registry.registerPath({
   method: "post",
   path: "/auth",
+  operationId: "auth",
   summary: "Аутентификация пользователя",
   tags: ["Auth"],
   request: {
@@ -82,6 +83,7 @@ registry.registerPath({
 registry.registerPath({
   method: "get",
   path: "/api/users/me",
+  operationId: "getMe",
   summary: "Получить информацию о текущем пользователе",
   tags: ["Users"],
   security: [{ bearerAuth: [] }],
@@ -109,6 +111,7 @@ registry.registerPath({
 registry.registerPath({
   method: "get",
   path: "/api/tasks",
+  operationId: "getTasks",
   summary: "Получить список задач",
   tags: ["Tasks"],
   security: [{ bearerAuth: [] }],
@@ -130,6 +133,7 @@ registry.registerPath({
 registry.registerPath({
   method: "post",
   path: "/api/tasks",
+  operationId: "createTask",
   summary: "Создать новую задачу",
   tags: ["Tasks"],
   security: [{ bearerAuth: [] }],
@@ -165,6 +169,7 @@ registry.registerPath({
 registry.registerPath({
   method: "get",
   path: "/api/tasks/{id}",
+  operationId: "getTask",
   summary: "Получить задачу по ID",
   tags: ["Tasks"],
   security: [{ bearerAuth: [] }],
@@ -197,6 +202,7 @@ registry.registerPath({
 registry.registerPath({
   method: "put",
   path: "/api/tasks/{id}",
+  operationId: "updateTask",
   summary: "Обновить задачу",
   tags: ["Tasks"],
   security: [{ bearerAuth: [] }],
@@ -233,6 +239,7 @@ registry.registerPath({
 registry.registerPath({
   method: "delete",
   path: "/api/tasks/{id}",
+  operationId: "deleteTask",
   summary: "Удалить задачу",
   tags: ["Tasks"],
   security: [{ bearerAuth: [] }],
@@ -258,6 +265,7 @@ registry.registerPath({
 registry.registerPath({
   method: "get",
   path: "/api/projects",
+  operationId: "getProjects",
   summary: "Получить список проектов",
   tags: ["Projects"],
   security: [{ bearerAuth: [] }],
@@ -276,6 +284,7 @@ registry.registerPath({
 registry.registerPath({
   method: "post",
   path: "/api/projects",
+  operationId: "createProject",
   summary: "Создать новый проект",
   tags: ["Projects"],
   security: [{ bearerAuth: [] }],
@@ -303,6 +312,7 @@ registry.registerPath({
 registry.registerPath({
   method: "get",
   path: "/api/projects/{id}",
+  operationId: "getProject",
   summary: "Получить проект по ID",
   tags: ["Projects"],
   security: [{ bearerAuth: [] }],
@@ -332,6 +342,7 @@ registry.registerPath({
 registry.registerPath({
   method: "put",
   path: "/api/projects/{id}",
+  operationId: "updateProject",
   summary: "Обновить проект",
   tags: ["Projects"],
   security: [{ bearerAuth: [] }],
@@ -368,6 +379,7 @@ registry.registerPath({
 registry.registerPath({
   method: "delete",
   path: "/api/projects/{id}",
+  operationId: "deleteProject",
   summary: "Удалить проект",
   tags: ["Projects"],
   security: [{ bearerAuth: [] }],
@@ -393,6 +405,7 @@ registry.registerPath({
 registry.registerPath({
   method: "get",
   path: "/api/areas",
+  operationId: "getAreas",
   summary: "Получить список областей",
   tags: ["Areas"],
   security: [{ bearerAuth: [] }],
@@ -411,6 +424,7 @@ registry.registerPath({
 registry.registerPath({
   method: "post",
   path: "/api/areas",
+  operationId: "createArea",
   summary: "Создать новую область",
   tags: ["Areas"],
   security: [{ bearerAuth: [] }],
@@ -438,6 +452,7 @@ registry.registerPath({
 registry.registerPath({
   method: "get",
   path: "/api/areas/{id}",
+  operationId: "getArea",
   summary: "Получить область по ID",
   tags: ["Areas"],
   security: [{ bearerAuth: [] }],
@@ -467,6 +482,7 @@ registry.registerPath({
 registry.registerPath({
   method: "put",
   path: "/api/areas/{id}",
+  operationId: "updateArea",
   summary: "Обновить область",
   tags: ["Areas"],
   security: [{ bearerAuth: [] }],
@@ -503,6 +519,7 @@ registry.registerPath({
 registry.registerPath({
   method: "delete",
   path: "/api/areas/{id}",
+  operationId: "deleteArea",
   summary: "Удалить область",
   tags: ["Areas"],
   security: [{ bearerAuth: [] }],
@@ -528,6 +545,7 @@ registry.registerPath({
 registry.registerPath({
   method: "post",
   path: "/api/sync/upload",
+  operationId: "uploadChanges",
   summary: "Загрузить изменения на сервер",
   tags: ["Sync"],
   security: [{ bearerAuth: [] }],
@@ -555,6 +573,7 @@ registry.registerPath({
 registry.registerPath({
   method: "get",
   path: "/api/sync/download",
+  operationId: "downloadChanges",
   summary: "Скачать изменения с сервера",
   tags: ["Sync"],
   security: [{ bearerAuth: [] }],
@@ -578,6 +597,7 @@ registry.registerPath({
 registry.registerPath({
   method: "get",
   path: "/api/sync/status",
+  operationId: "getSyncStatus",
   summary: "Получить статус синхронизации",
   tags: ["Sync"],
   security: [{ bearerAuth: [] }],
