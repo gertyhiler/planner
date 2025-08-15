@@ -1,4 +1,4 @@
-import { Button } from "shared/ui/button";
+import { Button } from "@planner/ui-kit/components/button";
 
 import { signIn } from "@/auth";
 

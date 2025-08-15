@@ -1,18 +1,18 @@
 interface Content {
   /**
-   * Path to `node_modules` where `@hornymarket/ui-kit` is installed
+   * Path to `node_modules` where `@planner/ui-kit` is installed
    *
    * ===============================================
    *
-   * For monorepo setup where `@hornymarket/ui-kit` is installed in the root `node_modules` but used in `apps/web` directory
+   * For monorepo setup where `@planner/ui-kit` is installed in the root `node_modules` but used in `apps/web` directory
    * @example
    * ```
    * // tailwind.config.(js|cjs|mjs) file
    *
    * // cjs
-   * const flowbite = require("@hornymarket/ui-kit/tailwind");
+   * const flowbite = require("@planner/ui-kit/tailwind");
    * // esm
-   * import flowbite from "@hornymarket/ui-kit/tailwind";
+   * import flowbite from "@planner/ui-kit/tailwind";
    *
    * {
    *   content: [
@@ -32,7 +32,7 @@ interface Content {
 }
 
 export function content({ base = "./" }: Content = {}) {
-  const path = "node_modules/@nanananaorg/ui-kit/dist/esm/**/*.mjs";
+  const path = "node_modules/@planner/ui-kit/dist/esm/**/*.mjs";
 
   return `${base}${path}`;
 }

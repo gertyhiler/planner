@@ -33,7 +33,6 @@
       "widgets/*": ["./src/widgets/*"],
       "features/*": ["./src/features/*"],
       "entity/*": ["./src/entity/*"],
-      "@/prisma": ["./src/shared/configs/prisma.server.ts"],
       "@/auth": ["./src/shared/configs/auth.server.ts"],
       "@/*": ["./src/*"]
     }

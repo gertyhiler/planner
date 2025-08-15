@@ -1,6 +1,10 @@
 "use client";
 
-import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "ui/resizable";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@planner/ui-kit/components/resizable";
 
 import Menu from "./menu";
 

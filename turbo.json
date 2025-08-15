@@ -10,6 +10,12 @@
       "cache": false,
       "persistent": true
     },
+    "story": {
+      "dependsOn": ["^story"],
+      "cache": false,
+      "persistent": true,
+      "outputs": ["storybook-static/**"]
+    },
     "lint": {
       "dependsOn": ["^lint"]
     },

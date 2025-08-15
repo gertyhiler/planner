@@ -1,5 +1,6 @@
 "use client";
 
+import { Toaster } from "@planner/ui-kit/components/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
@@ -7,8 +8,6 @@ import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "next-themes";
 
 import React from "react";
-
-import { Toaster } from "shared/ui/sonner";
 
 const queryClient = new QueryClient();
 

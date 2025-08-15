@@ -4,3 +4,4 @@ packages:
   - "packages/api-schema"
   - "packages/api-client"
   - "packages/database"
+  - "packages/ui-kit"

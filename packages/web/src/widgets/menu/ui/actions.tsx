@@ -1,12 +1,16 @@
+import { Button } from "@planner/ui-kit/components/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@planner/ui-kit/components/popover";
+import { Separator } from "@planner/ui-kit/components/separator";
+
 import { CreateAreaButton } from "entity/area";
 import { CreateProjectButton } from "entity/project";
 import { OpenSettingButton } from "entity/setting";
 
 import { PlusIcon } from "lucide-react";
-
-import { Button } from "ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "ui/popover";
-import { Separator } from "ui/separator";
 
 function Actions() {
   return (

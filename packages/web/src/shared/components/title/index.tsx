@@ -1,6 +1,5 @@
+import { Typography } from "@planner/ui-kit/components/typography";
 import RadialProgress from "components/radial-progress";
-
-import { Typography } from "ui/typography";
 
 function Title({
   content,

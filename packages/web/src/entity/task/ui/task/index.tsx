@@ -1,5 +1,6 @@
 "use client";
 
+import { Checkbox } from "@planner/ui-kit/components/checkbox";
 import Editor from "components/editor";
 
 import {
@@ -8,8 +9,6 @@ import {
   selectTitle,
   useTaskStore,
 } from "entity/task/model/store";
-
-import { Checkbox } from "ui/checkbox";
 
 // Task component is currently unused - uncomment when needed
 // function Task() {

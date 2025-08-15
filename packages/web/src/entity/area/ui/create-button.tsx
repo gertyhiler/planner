@@ -1,9 +1,8 @@
-import { cn } from "lib/utils";
+import { Button } from "@planner/ui-kit/components/button";
+import { Typography } from "@planner/ui-kit/components/typography";
+import { cn } from "@planner/ui-kit/utils";
 
 import { Box } from "lucide-react";
-
-import { Button } from "ui/button";
-import { Typography } from "ui/typography";
 
 function CreateAreaButton({
   className,

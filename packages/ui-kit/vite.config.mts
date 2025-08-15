@@ -11,7 +11,6 @@ const componentEntries = await glob("src/components/**/index.ts", {
   ignore: ["src/**/__docs__", "src/**/__test__"],
 });
 const entries = [
-  "src/index.ts",
   "src/tailwind.ts",
   "src/lib/utils.ts",
   "src/hooks/index.ts",
@@ -25,6 +24,7 @@ export default defineConfig({
     },
   },
   build: {
+    sourcemap: true,
     lib: {
       entry: entries,
       name: "ui-kit", // Sets the name of the generated library.
@@ -38,14 +38,12 @@ export default defineConfig({
           dir: `dist/esm`,
           entryFileNames: "[name].mjs",
           preserveModules: true,
-          sourcemap: true,
         },
         {
           format: "cjs",
           dir: `dist/cjs`,
           entryFileNames: "[name].cjs",
           preserveModules: true,
-          sourcemap: true,
         },
       ],
       external: [
@@ -61,12 +59,12 @@ export default defineConfig({
 
       plugins: [preserveDirectives()],
     },
-    sourcemap: true, // Generates source maps for debugging.
     emptyOutDir: true, // Clears the output directory before building.
   },
   plugins: [
     dts({
       outDir: "dist/types",
+      tsconfigPath: "./tsconfig.json",
     }),
     viteStaticCopy({
       targets: [
@@ -75,7 +73,7 @@ export default defineConfig({
           dest: ".",
         },
         {
-          src: "src/styles/interior.css",
+          src: "tailwind.config.cjs",
           dest: ".",
         },
       ],

@@ -1,8 +1,7 @@
-import { cn } from "lib/utils";
+import { Button } from "@planner/ui-kit/components/button";
+import { cn } from "@planner/ui-kit/utils";
 
 import { SettingsIcon } from "lucide-react";
-
-import { Button } from "ui/button";
 
 function OpenSettingButton({
   className,
