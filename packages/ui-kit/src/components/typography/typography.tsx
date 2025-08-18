@@ -1,13 +1,7 @@
 /* eslint-disable react/prop-types */
 import { VariantProps, cva } from "class-variance-authority";
 
-import {
-  ElementType,
-  HTMLAttributes,
-  LegacyRef,
-  PropsWithChildren,
-  RefAttributes,
-} from "react";
+import { ElementType, HTMLAttributes, PropsWithChildren, RefAttributes } from "react";
 
 const classes = cva("tracking-normal leading-base", {
   variants: {
@@ -59,7 +53,7 @@ interface TypographyProps
   weight?: WeightType;
   styleType?: StyleType;
   fontType?: FontType;
-  componentRef?: LegacyRef<HTMLElement>;
+  ref?: React.RefObject<HTMLElement>;
   as?: ElementType;
 }
 
@@ -69,7 +63,7 @@ function Typography({
   weight,
   styleType,
   fontType,
-  componentRef,
+  ref,
   as: As = "p",
   ...props
 }: TypographyProps) {
@@ -78,7 +72,7 @@ function Typography({
     <Tag
       {...props}
       className={classes({ variant, styleType, fontType, weight, className })}
-      ref={componentRef}
+      ref={ref}
     />
   );
 }
