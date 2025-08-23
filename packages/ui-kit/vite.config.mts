@@ -73,7 +73,7 @@ export default defineConfig({
           dest: ".",
         },
         {
-          src: "tailwind.config.cjs",
+          src: "preset.cjs",
           dest: ".",
         },
       ],

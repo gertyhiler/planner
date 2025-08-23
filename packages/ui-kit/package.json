@@ -40,7 +40,7 @@
       "require": "./dist/cjs/hooks/index.cjs"
     },
     "./style.css": "./dist/style.css",
-    "./tailwind.config.cjs": "./dist/tailwind.config.cjs",
+    "./tailwind.config.cjs": "./dist/preset.cjs",
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/src/index.cjs",
