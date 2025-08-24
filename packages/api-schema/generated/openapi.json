@@ -77,23 +77,6 @@
           "statusCode"
         ]
       },
-      "AuthRequest": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string",
-            "format": "email"
-          },
-          "password": {
-            "type": "string",
-            "minLength": 6
-          }
-        },
-        "required": [
-          "email",
-          "password"
-        ]
-      },
       "UserResponse": {
         "type": "object",
         "properties": {
@@ -1409,6 +1392,7 @@
   "paths": {
     "/auth": {
       "post": {
+        "operationId": "auth",
         "summary": "Аутентификация пользователя",
         "tags": [
           "Auth"
@@ -1417,7 +1401,19 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AuthRequest"
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ]
               }
             }
           }
@@ -1448,6 +1444,7 @@
     },
     "/api/users/me": {
       "get": {
+        "operationId": "getMe",
         "summary": "Получить информацию о текущем пользователе",
         "tags": [
           "Users"
@@ -1483,6 +1480,7 @@
     },
     "/api/tasks": {
       "get": {
+        "operationId": "getTasks",
         "summary": "Получить список задач",
         "tags": [
           "Tasks"
@@ -1545,6 +1543,7 @@
         }
       },
       "post": {
+        "operationId": "createTask",
         "summary": "Создать новую задачу",
         "tags": [
           "Tasks"
@@ -1589,6 +1588,7 @@
     },
     "/api/tasks/{id}": {
       "get": {
+        "operationId": "getTask",
         "summary": "Получить задачу по ID",
         "tags": [
           "Tasks"
@@ -1669,6 +1669,7 @@
         }
       },
       "put": {
+        "operationId": "updateTask",
         "summary": "Обновить задачу",
         "tags": [
           "Tasks"
@@ -1721,6 +1722,7 @@
         }
       },
       "delete": {
+        "operationId": "deleteTask",
         "summary": "Удалить задачу",
         "tags": [
           "Tasks"
@@ -1759,6 +1761,7 @@
     },
     "/api/projects": {
       "get": {
+        "operationId": "getProjects",
         "summary": "Получить список проектов",
         "tags": [
           "Projects"
@@ -1782,6 +1785,7 @@
         }
       },
       "post": {
+        "operationId": "createProject",
         "summary": "Создать новый проект",
         "tags": [
           "Projects"
@@ -1816,6 +1820,7 @@
     },
     "/api/projects/{id}": {
       "get": {
+        "operationId": "getProject",
         "summary": "Получить проект по ID",
         "tags": [
           "Projects"
@@ -1859,6 +1864,7 @@
         }
       },
       "put": {
+        "operationId": "updateProject",
         "summary": "Обновить проект",
         "tags": [
           "Projects"
@@ -1927,6 +1933,7 @@
         }
       },
       "delete": {
+        "operationId": "deleteProject",
         "summary": "Удалить проект",
         "tags": [
           "Projects"
@@ -1965,6 +1972,7 @@
     },
     "/api/areas": {
       "get": {
+        "operationId": "getAreas",
         "summary": "Получить список областей",
         "tags": [
           "Areas"
@@ -1988,6 +1996,7 @@
         }
       },
       "post": {
+        "operationId": "createArea",
         "summary": "Создать новую область",
         "tags": [
           "Areas"
@@ -2022,6 +2031,7 @@
     },
     "/api/areas/{id}": {
       "get": {
+        "operationId": "getArea",
         "summary": "Получить область по ID",
         "tags": [
           "Areas"
@@ -2065,6 +2075,7 @@
         }
       },
       "put": {
+        "operationId": "updateArea",
         "summary": "Обновить область",
         "tags": [
           "Areas"
@@ -2117,6 +2128,7 @@
         }
       },
       "delete": {
+        "operationId": "deleteArea",
         "summary": "Удалить область",
         "tags": [
           "Areas"
@@ -2155,6 +2167,7 @@
     },
     "/api/sync/upload": {
       "post": {
+        "operationId": "uploadChanges",
         "summary": "Загрузить изменения на сервер",
         "tags": [
           "Sync"
@@ -2189,6 +2202,7 @@
     },
     "/api/sync/download": {
       "get": {
+        "operationId": "downloadChanges",
         "summary": "Скачать изменения с сервера",
         "tags": [
           "Sync"
@@ -2225,6 +2239,7 @@
     },
     "/api/sync/status": {
       "get": {
+        "operationId": "getSyncStatus",
         "summary": "Получить статус синхронизации",
         "tags": [
           "Sync"

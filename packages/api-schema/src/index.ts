@@ -34,7 +34,7 @@ import {
   UploadChangesResponseSchema,
   DownloadChangesRequestSchema,
 } from "@planner/types";
-import z from "zod";
+import { z } from "@planner/core/zod";
 // Создаем реестр для OpenAPI схем
 const registry = new OpenAPIRegistry();
 
@@ -55,7 +55,15 @@ registry.registerPath({
     body: {
       content: {
         "application/json": {
-          schema: AuthRequestSchema.openapi("AuthRequest"),
+          // schema: AuthRequestSchema,
+          schema: {
+            type: "object",
+            properties: {
+              email: { type: "string" },
+              password: { type: "string" },
+            },
+            required: ["email", "password"],
+          },
         },
       },
     },

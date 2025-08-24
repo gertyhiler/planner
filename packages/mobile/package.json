@@ -16,6 +16,6 @@
   },
   "dependencies": {
     "@planner/types": "workspace:*",
-    "@planner/api-client": "workspace:*"
+    "@planner/sdk": "workspace:*"
   }
 }

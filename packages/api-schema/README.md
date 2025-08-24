@@ -17,7 +17,7 @@
        ↓
 @planner/api-schema (OpenAPI генерация)
        ↓
-@planner/api-client (TypeScript SDK)
+@planner/sdk (TypeScript SDK)
 ```
 
 ## Использование
@@ -50,6 +50,6 @@ src/
 
 Этот пакет используется:
 
-- `@planner/api-client` - для генерации TypeScript SDK
+- `@planner/sdk` - для генерации TypeScript SDK
 - `@planner/backend` - для валидации запросов
 - Swagger UI - для документации API

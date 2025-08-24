@@ -1,7 +1,8 @@
 packages:
   - "packages/*"
+  - "packages/core"
   - "packages/types"
   - "packages/api-schema"
-  - "packages/api-client"
+  - "packages/sdk"
   - "packages/database"
   - "packages/ui-kit"

@@ -52,7 +52,7 @@ Planner - это планировщик задач с поддержкой web, 
 ├── TypeScript types  # Типы для API
 └── Validation        # Валидация запросов/ответов
 
-@planner/api-client/   # 🌐 SDK для web
+@planner/sdk/   # 🌐 SDK для web
 ├── HTTP client       # Клиент для API
 ├── Auth client       # Аутентификация
 └── TypeScript API    # Типизированные методы
@@ -90,7 +90,7 @@ Zod Schemas (@planner/types)
        ↓
 OpenAPI Schema (@planner/api-schema)
        ↓
-TypeScript SDK (@planner/api-client)
+TypeScript SDK (@planner/sdk)
        ↓
 Client Applications (web, app, mobile)
 ```
@@ -175,7 +175,7 @@ export class TasksService {
 
 ```typescript
 // В любом клиентском приложении
-import { TasksService } from "@planner/api-client";
+import { TasksService } from "@planner/sdk";
 import type { Task } from "@planner/types";
 
 const task: Task = await TasksService.createTask({

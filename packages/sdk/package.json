@@ -1,22 +1,47 @@
 {
-  "name": "@planner/api-client",
+  "name": "@planner/sdk",
   "version": "0.1.0",
-  "description": "TypeScript API client for Planner",
-  "main": "generated/index.ts",
+  "description": "TypeScript API client for Planner with TanStack Query hooks",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "module": "dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    },
+    "./libs/tanstack": {
+      "types": "./dist/libs/tanstack.d.ts",
+      "import": "./dist/libs/tanstack.js",
+      "require": "./dist/libs/tanstack.js"
+    },
+    "./libs/fetch": {
+      "types": "./dist/libs/fetch/*.d.ts",
+      "import": "./dist/libs/fetch/*.js",
+      "require": "./dist/libs/fetch/*.js"
+    }
+  },
   "scripts": {
+    "generate:paths": "tsx scripts/path-generator.ts",
+    "prebuild": "npm run generate:paths",
     "build": "tsc",
-    "dev": "tsc --watch",
-    "generate": "bun scripts/generate-client.ts",
-    "clean": "rm -rf dist"
+    "dev": "npm run generate:paths && tsc --watch",
+    "clean": "rm -rf dist src/generated"
   },
   "dependencies": {
     "@planner/api-schema": "workspace:*",
-    "@planner/types": "workspace:*"
+    "@planner/types": "workspace:*",
+    "@tanstack/react-query": "^5.85.5",
+    "zod": "^4.1.1"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",
     "typescript": "^5.3.0",
-    "openapi-typescript-codegen": "^0.27.0"
+    "orval": "^7.11.2",
+    "tsx": "^4.7.1"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0"
   }
 }

@@ -23,7 +23,7 @@
   "dependencies": {
     "@planner/types": "workspace:*",
     "@prisma/client": "^5.22.0",
-    "zod": "^3.23.8",
+    "zod": "^4.1.1",
     "zod-prisma": "^0.5.4"
   },
   "devDependencies": {

@@ -176,12 +176,12 @@ import { openApiSchema } from "@planner/api-schema";
 // - Документации API
 ```
 
-### @planner/api-client
+### @planner/sdk
 
 SDK для web приложения.
 
 ```typescript
-import { apiClient } from "@planner/api-client";
+import { apiClient } from "@planner/sdk";
 
 // Аутентификация
 await apiClient.auth({ email, password });
@@ -207,7 +207,7 @@ Web приложение (тонкий клиент).
 
 ```typescript
 // Использует только API клиент
-import { apiClient } from "@planner/api-client";
+import { apiClient } from "@planner/sdk";
 import { TaskList } from "@planner/ui-kit";
 
 // Никакой локальной БД, только API вызовы
@@ -245,7 +245,7 @@ import { TaskList } from "@planner/ui-kit";
 2. **Создать сервис в @planner/database**
 3. **Добавить API эндпоинты в @planner/backend**
 4. **Обновить OpenAPI схему в @planner/api-schema**
-5. **Добавить методы в @planner/api-client**
+5. **Добавить методы в @planner/sdk**
 6. **Создать UI компоненты в @planner/ui-kit**
 
 ### Добавление новой бизнес-логики
