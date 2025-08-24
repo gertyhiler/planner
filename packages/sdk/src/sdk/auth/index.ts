@@ -1,6 +1,6 @@
-import { FetchInstance } from "@/libs/fetch/instance";
+import { ApiInterface, FetchInstance } from "../../libs/fetch/instance";
 import { AuthRequest, AuthResponse, AuthResponseSchema } from "@planner/types";
-import { ServerErrorImpl } from "@/libs/fetch/error";
+import { ServerErrorImpl } from "../../libs/fetch/error";
 
 export const AuthApi = (fetcher: FetchInstance) => ({
   login: async (

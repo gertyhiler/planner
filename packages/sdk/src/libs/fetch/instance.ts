@@ -658,20 +658,18 @@ export class FetchInstance {
   }
 }
 
-declare global {
-  interface ApiInterface<T> {
-    status: "success" | "error";
-    requestId: string;
-    response: {
-      headers: Headers;
-      status: number;
-    };
-    data: T;
-    config: {
-      method: string;
-      url: string;
-      headers: HeadersInit;
-      body: string;
-    };
-  }
+export interface ApiInterface<T> {
+  status: "success" | "error";
+  requestId: string;
+  response: {
+    headers: Headers;
+    status: number;
+  };
+  data: T;
+  config: {
+    method: string;
+    url: string;
+    headers: HeadersInit;
+    body: string;
+  };
 }
