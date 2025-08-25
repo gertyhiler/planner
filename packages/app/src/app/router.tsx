@@ -4,17 +4,17 @@ import {
   createRoute,
 } from "@tanstack/react-router";
 import { StrictMode } from "react";
-import { Layout } from "../widgets/layout";
+import { Layout } from "@/widgets/layout";
 
 // Импорты страниц
-import { MainPage } from "../pages/main";
-import { TodayPage } from "../pages/today";
-import { CalendarPage } from "../pages/calendar";
-import { AwaitedPage } from "../pages/awaited";
-import { SomedayPage } from "../pages/someday";
-import { ArchivePage } from "../pages/archive";
-import { TrashPage } from "../pages/trash";
-import { ProjectPage } from "../pages/project";
+import { MainPage } from "@/pages/main";
+import { TodayPage } from "@/pages/today";
+import { CalendarPage } from "@/pages/calendar";
+import { AwaitedPage } from "@/pages/awaited";
+import { SomedayPage } from "@/pages/someday";
+import { ArchivePage } from "@/pages/archive";
+import { TrashPage } from "@/pages/trash";
+import { ProjectPage } from "@/pages/project";
 
 // Корневой роут с Layout
 const rootRoute = createRootRoute({

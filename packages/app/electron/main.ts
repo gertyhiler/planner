@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -28,9 +28,25 @@ let win: BrowserWindow | null;
 function createWindow() {
   win = new BrowserWindow({
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
-    title: "Electron Template",
+    title: "Planner",
+    ...(process.platform === "darwin"
+      ? {
+          // macOS - оставляем нативные кнопки управления окном
+          titleBarStyle: "hiddenInset",
+          frame: false,
+        }
+      : {
+          // Windows/Linux - полностью безрамочное окно
+          frame: false,
+        }),
+    width: 1200,
+    height: 800,
+    minWidth: 800,
+    minHeight: 600,
     webPreferences: {
       preload: path.join(__dirname, "preload.mjs"),
+      nodeIntegration: false,
+      contextIsolation: true,
     },
   });
 
@@ -63,6 +79,33 @@ app.on("activate", () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
+});
+
+// Обработчики для управления окном
+ipcMain.handle("window-minimize", () => {
+  if (win) {
+    win.minimize();
+  }
+});
+
+ipcMain.handle("window-maximize", () => {
+  if (win) {
+    if (win.isMaximized()) {
+      win.unmaximize();
+    } else {
+      win.maximize();
+    }
+  }
+});
+
+ipcMain.handle("window-close", () => {
+  if (win) {
+    win.close();
+  }
+});
+
+ipcMain.handle("window-is-maximized", () => {
+  return win?.isMaximized() ?? false;
 });
 
 app.whenReady().then(createWindow);

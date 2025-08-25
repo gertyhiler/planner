@@ -12,7 +12,7 @@ import MenuItem from "./item";
 
 function Menu() {
   return (
-    <nav className="h-svh bg-card min-w-[220px] flex flex-col">
+    <nav className="h-svh bg-sidebar min-w-[220px] flex flex-col">
       <ul className="flex flex-col gap-2 flex-1 p-2 pt-4 overflow-x-auto">
         <li>
           {/* Системные проекты */}

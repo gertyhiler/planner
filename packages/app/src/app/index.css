@@ -196,3 +196,18 @@
   --shadow-xl: var(--shadow-xl);
   --shadow-2xl: var(--shadow-2xl);
 }
+
+/* Electron frameless window styles */
+.electron-drag {
+  -webkit-app-region: drag;
+}
+
+.electron-no-drag {
+  -webkit-app-region: no-drag;
+}
+
+/* Убираем выделение текста в областях перетаскивания */
+.electron-drag {
+  -webkit-user-select: none;
+  user-select: none;
+}

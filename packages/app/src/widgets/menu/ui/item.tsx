@@ -32,7 +32,7 @@ function MenuItem({
   return (
     <Link
       to={href}
-      className={`flex hover:text-foreground/80 hover:bg-muted/50 items-center gap-2 text-card-foreground px-3 py-2 rounded-md transition-colors ${
+      className={`flex hover:text-accent-foreground hover:bg-sidebar-accent items-center gap-2 text-card-foreground px-3 py-2 rounded-md transition-colors ${
         isCurrentRoute ? "bg-muted" : ""
       }`}
     >
