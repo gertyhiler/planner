@@ -5,7 +5,7 @@ function Layout() {
   return (
     <main className="flex h-svh overflow-hidden">
       <ResizableMenuWrapper>
-        <section>
+        <section className="flex-1 h-full p-2">
           <Outlet />
         </section>
       </ResizableMenuWrapper>

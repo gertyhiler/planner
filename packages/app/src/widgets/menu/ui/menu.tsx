@@ -6,9 +6,9 @@ import {
   InboxIcon,
   StarIcon,
   TrashIcon,
-} from "lucide-react"
+} from "lucide-react";
 
-import MenuItem from "./item"
+import MenuItem from "./item";
 
 function Menu() {
   return (
@@ -20,7 +20,7 @@ function Menu() {
             title="Входящие"
             count={2}
             icon={<InboxIcon />}
-            wrapperColor="bg-transparent dark:bg-primary"
+            wrapperColor="bg-transparent text-primary"
             href="/"
             matchPattern="/"
           />
@@ -29,7 +29,7 @@ function Menu() {
             title="Сегодня"
             count={2}
             icon={<StarIcon />}
-            wrapperColor="bg-transparent dark:bg-yellow-600"
+            wrapperColor="bg-transparent text-yellow-600"
             href="/today"
             matchPattern="/today"
           />
@@ -37,7 +37,7 @@ function Menu() {
             title="Календарь"
             count={0}
             icon={<Calendar />}
-            wrapperColor="bg-transparent dark:bg-orange-700"
+            wrapperColor="bg-transparent text-orange-700"
             href="/calendar"
             matchPattern="/calendar"
           />
@@ -45,7 +45,7 @@ function Menu() {
             title="Ожидаемые"
             count={2}
             icon={<Clock />}
-            wrapperColor="bg-transparent dark:bg-indigo-800"
+            wrapperColor="bg-transparent text-indigo-800"
             href="/awaited"
             matchPattern="/awaited"
           />
@@ -53,7 +53,7 @@ function Menu() {
             title="Когда-нибудь"
             count={2}
             icon={<BoxSelectIcon />}
-            wrapperColor="bg-transparent dark:bg-cyan-700"
+            wrapperColor="bg-transparent text-cyan-700"
             href="/someday"
             matchPattern="/someday"
           />
@@ -61,7 +61,7 @@ function Menu() {
             title="Архив"
             count={0}
             icon={<BookAIcon />}
-            wrapperColor="bg-transparent dark:bg-green-700"
+            wrapperColor="bg-transparent text-green-700"
             href="/archive"
             matchPattern="/archive"
           />
@@ -69,7 +69,7 @@ function Menu() {
             title="Корзина"
             count={0}
             icon={<TrashIcon />}
-            wrapperColor="bg-transparent dark:bg-slate-500"
+            wrapperColor="bg-transparent text-slate-500"
             href="/trash"
             matchPattern="/trash"
           />
@@ -77,7 +77,7 @@ function Menu() {
         </li>
       </ul>
     </nav>
-  )
+  );
 }
 
-export default Menu
+export default Menu;

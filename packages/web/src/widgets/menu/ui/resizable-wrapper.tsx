@@ -26,9 +26,7 @@ function ResizableMenuWrapper({
       </ResizablePanel>
       <ResizableHandle />
 
-      <ResizablePanel defaultSize={defaultLayout[1]}>
-        <section>{children}</section>
-      </ResizablePanel>
+      <ResizablePanel defaultSize={defaultLayout[1]}>{children}</ResizablePanel>
     </ResizablePanelGroup>
   );
 }

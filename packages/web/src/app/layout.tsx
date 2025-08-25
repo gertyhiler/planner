@@ -29,7 +29,7 @@ export default async function RootLayout({
           <Secure>
             <main className="flex h-svh overflow-hidden">
               <ResizableMenuWrapper defaultLayout={layoutSizes}>
-                <section>{children}</section>
+                {children}
               </ResizableMenuWrapper>
             </main>
           </Secure>

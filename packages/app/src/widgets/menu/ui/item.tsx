@@ -32,12 +32,12 @@ function MenuItem({
   return (
     <Link
       to={href}
-      className={`flex items-center gap-2 text-card-foreground px-3 py-2 rounded-md ${
+      className={`flex hover:text-foreground/80 hover:bg-muted/50 items-center gap-2 text-card-foreground px-3 py-2 rounded-md transition-colors ${
         isCurrentRoute ? "bg-muted" : ""
       }`}
     >
       <div
-        className={`flex items-center justify-center w-8 h-5 bg-primary/90 rounded ${wrapperColor} [&>svg]:size-4`}
+        className={`flex items-center justify-center bg-primary/90 rounded ${wrapperColor} [&>svg]:size-5`}
       >
         {icon}
       </div>
@@ -45,7 +45,7 @@ function MenuItem({
       <span className="text-body font-medium leading-3">{title}</span>
 
       {Boolean(count) && (
-        <span className="ml-auto text-xs font-bold text-gray-300 bg-gray-700 px-1.5 py-0.5 rounded">
+        <span className="ml-auto text-xs font-bold text-card-foreground bg-card px-1.5 py-0.5 rounded">
           {count}
         </span>
       )}
