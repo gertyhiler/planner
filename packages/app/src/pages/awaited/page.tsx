@@ -1,6 +1,6 @@
-import { ContentWrapper } from "@planner/ui-kit/components/content-wrapper"
-import { Title } from "../../shared/components/title"
-import { Clock } from "lucide-react"
+import { ContentWrapper } from "@/shared/components/content-wrapper";
+import { Title } from "../../shared/components/title";
+import { Clock } from "lucide-react";
 
 function Awaited() {
   return (
@@ -10,7 +10,7 @@ function Awaited() {
         <p className="text-muted-foreground">Задачи, ожидающие выполнения</p>
       </div>
     </ContentWrapper>
-  )
+  );
 }
 
-export default Awaited
+export default Awaited;

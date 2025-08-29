@@ -1,10 +1,10 @@
-import { Typography } from "@planner/ui-kit/components/typography"
+import { Typography } from "@/shared/ui/typography";
 
 interface TitleProps {
-  content: string
-  progress?: number
-  complied?: number
-  icon?: React.ReactNode
+  content: string;
+  progress?: number;
+  complied?: number;
+  icon?: React.ReactNode;
 }
 
 function Title({ content, progress, complied, icon }: TitleProps) {
@@ -14,7 +14,10 @@ function Title({ content, progress, complied, icon }: TitleProps) {
       {progress && !icon && !complied && (
         <div className="relative w-10 h-10">
           {/* Радиальный прогресс бар */}
-          <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 36 36">
+          <svg
+            className="absolute top-0 left-0 w-full h-full"
+            viewBox="0 0 36 36"
+          >
             <path
               className="text-primary border-primary"
               strokeWidth="3.8"
@@ -29,7 +32,10 @@ function Title({ content, progress, complied, icon }: TitleProps) {
       )}
       {complied && !icon && !progress && (
         <div className="relative w-10 h-10">
-          <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 36 36">
+          <svg
+            className="absolute top-0 left-0 w-full h-full"
+            viewBox="0 0 36 36"
+          >
             <path
               className="text-green-600"
               strokeWidth="3.8"
@@ -43,7 +49,7 @@ function Title({ content, progress, complied, icon }: TitleProps) {
       )}
       <Typography.h3 as="h2">{content}</Typography.h3>
     </div>
-  )
+  );
 }
 
-export default Title
+export default Title;

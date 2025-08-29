@@ -1,6 +1,6 @@
-import { ContentWrapper } from "@planner/ui-kit/components/content-wrapper"
-import { Title } from "../../shared/components/title"
-import { StarIcon } from "lucide-react"
+import { ContentWrapper } from "@/shared/components/content-wrapper";
+import { Title } from "../../shared/components/title";
+import { StarIcon } from "lucide-react";
 
 function Today() {
   return (
@@ -10,7 +10,7 @@ function Today() {
         <p className="text-muted-foreground">Задачи на сегодня</p>
       </div>
     </ContentWrapper>
-  )
+  );
 }
 
-export default Today
+export default Today;

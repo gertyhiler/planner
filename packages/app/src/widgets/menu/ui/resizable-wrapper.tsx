@@ -20,7 +20,7 @@ function ResizableMenuWrapper({
       <ResizablePanel defaultSize={defaultLayout[0]} maxSize={25}>
         <Menu />
       </ResizablePanel>
-      <ResizableHandle className="bg-primary/90 shadow-accent shadow-md w-[2px]" />
+      <ResizableHandle className="bg-primary/90 shadow-accent shadow-md w-1 h-10 rounded-full cursor-col-resize my-auto opacity-50 -translate-x-1/2 hover:opacity-100" />
 
       <ResizablePanel defaultSize={defaultLayout[1]}>{children}</ResizablePanel>
     </ResizablePanelGroup>

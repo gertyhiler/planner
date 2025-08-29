@@ -1,5 +1,6 @@
-import { ContentWrapper } from "@planner/ui-kit/components/content-wrapper";
 import Title from "components/title";
+
+import { ContentWrapper } from "@/shared/components/content-wrapper";
 
 import { Task } from "entity/task";
 

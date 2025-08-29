@@ -1,7 +1,7 @@
-import { ContentWrapper } from "@planner/ui-kit/components/content-wrapper"
-import { Title } from "../../shared/components/title"
-import { Task } from "../../entity/task"
-import { InboxIcon } from "lucide-react"
+import { ContentWrapper } from "@/shared/components/content-wrapper";
+import { Title } from "@/shared/components/title";
+import { Task } from "@/entity/task";
+import { InboxIcon } from "lucide-react";
 
 function Main() {
   return (
@@ -11,7 +11,7 @@ function Main() {
         <Task />
       </div>
     </ContentWrapper>
-  )
+  );
 }
 
-export default Main
+export default Main;

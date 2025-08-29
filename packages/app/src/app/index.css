@@ -1,4 +1,5 @@
 @import "tailwindcss";
+/* @source "../node_modules/@planner/ui-kit/dist/index.css"; */
 
 @plugin "tailwindcss-animate";
 
@@ -181,6 +182,15 @@
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
   --font-serif: var(--font-serif);
+
+  --text-h1: clamp(2.1875rem, 2.0775rem + 0.4695vw, 2.5rem);
+  --text-h2: clamp(1.875rem, 1.765rem + 0.4695vw, 2.1875rem);
+  --text-h3: clamp(1.5625rem, 1.4525rem + 0.4695vw, 1.875rem);
+  --text-h4: clamp(1.25rem, 1.14rem + 0.4695vw, 1.5625rem);
+  --text-h5: clamp(1.25rem, 1.25rem + 0vw, 1.25rem);
+  --text-body: clamp(13px, 0.7465rem + 0.2817vw, 16px);
+  --text-small: 14px;
+  --text-caption: 13px;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

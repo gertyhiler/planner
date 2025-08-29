@@ -1,4 +1,4 @@
-import { ContentWrapper } from "@planner/ui-kit/components/content-wrapper";
+import { ContentWrapper } from "@/shared/components/content-wrapper";
 import { Title } from "../../shared/components/title";
 import { useParams } from "@tanstack/react-router";
 import { FolderIcon } from "lucide-react";

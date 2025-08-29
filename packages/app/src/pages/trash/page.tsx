@@ -1,6 +1,6 @@
-import { ContentWrapper } from "@planner/ui-kit/components/content-wrapper"
-import { Title } from "../../shared/components/title"
-import { TrashIcon } from "lucide-react"
+import { ContentWrapper } from "@/shared/components/content-wrapper";
+import { Title } from "../../shared/components/title";
+import { TrashIcon } from "lucide-react";
 
 function Trash() {
   return (
@@ -10,7 +10,7 @@ function Trash() {
         <p className="text-muted-foreground">Удаленные элементы</p>
       </div>
     </ContentWrapper>
-  )
+  );
 }
 
-export default Trash
+export default Trash;

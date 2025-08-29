@@ -1,6 +1,6 @@
-import { ContentWrapper } from "@planner/ui-kit/components/content-wrapper"
-import { Title } from "../../shared/components/title"
-import { BookAIcon } from "lucide-react"
+import { ContentWrapper } from "@/shared/components/content-wrapper";
+import { Title } from "../../shared/components/title";
+import { BookAIcon } from "lucide-react";
 
 function Archive() {
   return (
@@ -10,7 +10,7 @@ function Archive() {
         <p className="text-muted-foreground">Архивированные задачи и проекты</p>
       </div>
     </ContentWrapper>
-  )
+  );
 }
 
-export default Archive
+export default Archive;
