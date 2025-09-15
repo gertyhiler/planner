@@ -1,4 +1,4 @@
-import { dbClient } from "../client";
+import type { DatabaseContext } from "../client";
 
 export interface CreateAreaData {
   name: string;
@@ -21,8 +21,9 @@ export interface AreaFilters {
 }
 
 export class AreaService {
+  constructor(private readonly context: DatabaseContext) {}
   async createArea(data: CreateAreaData) {
-    const area = await dbClient.client.area.create({
+    const area = await this.context.prisma.area.create({
       data: {
         ...data,
         version: 1,
@@ -37,12 +38,12 @@ export class AreaService {
       },
     });
 
-    await dbClient.logSyncOperation(area.id, "Area", "CREATE", area);
+    await this.context.logSyncOperation(area.id, "Area", "CREATE", area);
     return area;
   }
 
   async updateArea(id: string, data: UpdateAreaData) {
-    const existingArea = await dbClient.client.area.findUnique({
+    const existingArea = await this.context.prisma.area.findUnique({
       where: { id },
     });
 
@@ -50,7 +51,7 @@ export class AreaService {
       throw new Error(`Area with id ${id} not found`);
     }
 
-    const area = await dbClient.client.area.update({
+    const area = await this.context.prisma.area.update({
       where: { id },
       data: {
         ...data,
@@ -66,12 +67,12 @@ export class AreaService {
       },
     });
 
-    await dbClient.logSyncOperation(area.id, "Area", "UPDATE", area);
+    await this.context.logSyncOperation(area.id, "Area", "UPDATE", area);
     return area;
   }
 
   async deleteArea(id: string) {
-    const area = await dbClient.client.area.findUnique({
+    const area = await this.context.prisma.area.findUnique({
       where: { id },
     });
 
@@ -79,7 +80,7 @@ export class AreaService {
       throw new Error(`Area with id ${id} not found`);
     }
 
-    await dbClient.client.area.update({
+    await this.context.prisma.area.update({
       where: { id },
       data: {
         isDeleted: true,
@@ -88,14 +89,14 @@ export class AreaService {
       },
     });
 
-    await dbClient.logSyncOperation(id, "Area", "DELETE", {
+    await this.context.logSyncOperation(id, "Area", "DELETE", {
       id,
       isDeleted: true,
     });
   }
 
   async getById(id: string) {
-    return dbClient.client.area.findFirst({
+    return this.context.prisma.area.findFirst({
       where: {
         id,
         isDeleted: false,
@@ -123,7 +124,7 @@ export class AreaService {
       ];
     }
 
-    return dbClient.client.area.findMany({
+    return this.context.prisma.area.findMany({
       where,
       include: {
         user: true,
@@ -148,5 +149,3 @@ export class AreaService {
     return this.deleteArea(id);
   }
 }
-
-export const areaService = new AreaService();

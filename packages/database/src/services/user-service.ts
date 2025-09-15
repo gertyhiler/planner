@@ -1,4 +1,4 @@
-import { dbClient } from "../client";
+import type { DatabaseContext } from "../client";
 import type { User } from "../../generated/client";
 import {
   BaseService,
@@ -26,7 +26,10 @@ export interface UserFilters {
 }
 
 export class UserService {
-  private prismaModel = dbClient.client.user;
+  private prismaModel;
+  constructor(private readonly context: DatabaseContext) {
+    this.prismaModel = context.prisma.user;
+  }
 
   // Специфичные методы для пользователей
   async getUserByEmail(email: string): Promise<User | null> {
@@ -175,19 +178,19 @@ export class UserService {
   }> {
     const [totalTasks, completedTasks, activeTasks, totalProjects, totalAreas] =
       await Promise.all([
-        dbClient.client.task.count({
+        this.context.prisma.task.count({
           where: { userId, isDeleted: false },
         }),
-        dbClient.client.task.count({
+        this.context.prisma.task.count({
           where: { userId, status: "COMPLETED", isDeleted: false },
         }),
-        dbClient.client.task.count({
+        this.context.prisma.task.count({
           where: { userId, status: "ACTIVE", isDeleted: false },
         }),
-        dbClient.client.project.count({
+        this.context.prisma.project.count({
           where: { userId, isDeleted: false },
         }),
-        dbClient.client.area.count({
+        this.context.prisma.area.count({
           where: { userId, isDeleted: false },
         }),
       ]);
@@ -203,4 +206,4 @@ export class UserService {
 }
 
 // Экспорт синглтона
-export const userService = new UserService();
+// Singleton is deprecated; prefer constructing with a DatabaseContext.

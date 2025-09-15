@@ -1,4 +1,4 @@
-import { dbClient } from "../client";
+import type { DatabaseContext } from "../client";
 
 export interface SyncOperation {
   id: string;
@@ -37,8 +37,10 @@ export class SyncManager {
   private config: SyncConfig;
   private syncInterval?: NodeJS.Timeout;
   private isOnline: boolean = true;
-
-  constructor(config: Partial<SyncConfig> = {}) {
+  constructor(
+    private readonly context: DatabaseContext,
+    config: Partial<SyncConfig> = {}
+  ) {
     this.config = {
       autoSync: true,
       syncInterval: 30000, // 30 секунд
@@ -118,7 +120,7 @@ export class SyncManager {
   }
 
   private async getLocalChanges(): Promise<SyncOperation[]> {
-    const syncLogs = await dbClient.getLocalChanges();
+    const syncLogs = await this.context.getLocalChanges();
 
     return syncLogs.map((log) => ({
       id: log.id,
@@ -150,7 +152,7 @@ export class SyncManager {
 
     // Помечаем изменения как синхронизированные
     for (const change of changes) {
-      await dbClient.markAsSynced(change.id);
+      await this.context.markAsSynced(change.id);
     }
   }
 
@@ -182,7 +184,7 @@ export class SyncManager {
 
   private async getLastSyncTime(): Promise<Date | null> {
     // Получаем время последней синхронизации из локальной БД
-    const lastSyncLog = await dbClient.client.syncLog.findFirst({
+    const lastSyncLog = await this.context.prisma.syncLog.findFirst({
       where: { synced: true },
       orderBy: { timestamp: "desc" },
     });
@@ -218,7 +220,7 @@ export class SyncManager {
 
     switch (entityType) {
       case "Task":
-        await dbClient.client.task.create({
+        await this.context.prisma.task.create({
           data: {
             ...data,
             syncId: data.id, // Сохраняем cloud ID
@@ -227,7 +229,7 @@ export class SyncManager {
         });
         break;
       case "Project":
-        await dbClient.client.project.create({
+        await this.context.prisma.project.create({
           data: {
             ...data,
             syncId: data.id,
@@ -236,7 +238,7 @@ export class SyncManager {
         });
         break;
       case "Area":
-        await dbClient.client.area.create({
+        await this.context.prisma.area.create({
           data: {
             ...data,
             syncId: data.id,
@@ -253,7 +255,7 @@ export class SyncManager {
 
     switch (entityType) {
       case "Task":
-        await dbClient.client.task.update({
+        await this.context.prisma.task.update({
           where: { syncId: data.id },
           data: {
             ...data,
@@ -263,7 +265,7 @@ export class SyncManager {
         });
         break;
       case "Project":
-        await dbClient.client.project.update({
+        await this.context.prisma.project.update({
           where: { syncId: data.id },
           data: {
             ...data,
@@ -273,7 +275,7 @@ export class SyncManager {
         });
         break;
       case "Area":
-        await dbClient.client.area.update({
+        await this.context.prisma.area.update({
           where: { syncId: data.id },
           data: {
             ...data,
@@ -291,7 +293,7 @@ export class SyncManager {
 
     switch (entityType) {
       case "Task":
-        await dbClient.client.task.update({
+        await this.context.prisma.task.update({
           where: { syncId: data.id },
           data: {
             isDeleted: true,
@@ -301,7 +303,7 @@ export class SyncManager {
         });
         break;
       case "Project":
-        await dbClient.client.project.update({
+        await this.context.prisma.project.update({
           where: { syncId: data.id },
           data: {
             isDeleted: true,
@@ -311,7 +313,7 @@ export class SyncManager {
         });
         break;
       case "Area":
-        await dbClient.client.area.update({
+        await this.context.prisma.area.update({
           where: { syncId: data.id },
           data: {
             isDeleted: true,
@@ -407,4 +409,4 @@ export class SyncManager {
 }
 
 // Экспорт синглтона
-export const syncManager = new SyncManager();
+// Singleton is deprecated; prefer constructing with a DatabaseContext via factory in index.

@@ -1,4 +1,4 @@
-import { dbClient } from "../client";
+import type { DatabaseContext } from "../client";
 import type { Project, Prisma } from "../../generated/client";
 
 export interface CreateProjectData {
@@ -18,8 +18,9 @@ export interface ProjectFilters {
 }
 
 export class ProjectService {
+  constructor(private readonly context: DatabaseContext) {}
   async createProject(data: CreateProjectData): Promise<Project> {
-    const project = await dbClient.client.project.create({
+    const project = await this.context.prisma.project.create({
       data: {
         ...data,
         version: 1,
@@ -33,13 +34,18 @@ export class ProjectService {
     });
 
     // Логируем операцию для синхронизации
-    await dbClient.logSyncOperation(project.id, "Project", "CREATE", project);
+    await this.context.logSyncOperation(
+      project.id,
+      "Project",
+      "CREATE",
+      project
+    );
 
     return project;
   }
 
   async updateProject(data: UpdateProjectData): Promise<Project> {
-    const existingProject = await dbClient.client.project.findUnique({
+    const existingProject = await this.context.prisma.project.findUnique({
       where: { id: data.id },
     });
 
@@ -47,7 +53,7 @@ export class ProjectService {
       throw new Error(`Project with id ${data.id} not found`);
     }
 
-    const project = await dbClient.client.project.update({
+    const project = await this.context.prisma.project.update({
       where: { id: data.id },
       data: {
         ...data,
@@ -62,13 +68,18 @@ export class ProjectService {
     });
 
     // Логируем операцию для синхронизации
-    await dbClient.logSyncOperation(project.id, "Project", "UPDATE", project);
+    await this.context.logSyncOperation(
+      project.id,
+      "Project",
+      "UPDATE",
+      project
+    );
 
     return project;
   }
 
   async deleteProject(id: string): Promise<void> {
-    const project = await dbClient.client.project.findUnique({
+    const project = await this.context.prisma.project.findUnique({
       where: { id },
     });
 
@@ -77,7 +88,7 @@ export class ProjectService {
     }
 
     // Soft delete
-    await dbClient.client.project.update({
+    await this.context.prisma.project.update({
       where: { id },
       data: {
         isDeleted: true,
@@ -87,14 +98,14 @@ export class ProjectService {
     });
 
     // Логируем операцию для синхронизации
-    await dbClient.logSyncOperation(id, "Project", "DELETE", {
+    await this.context.logSyncOperation(id, "Project", "DELETE", {
       id,
       isDeleted: true,
     });
   }
 
   async getProject(id: string): Promise<Project | null> {
-    return dbClient.client.project.findFirst({
+    return this.context.prisma.project.findFirst({
       where: {
         id,
         isDeleted: false,
@@ -120,7 +131,7 @@ export class ProjectService {
       ];
     }
 
-    return dbClient.client.project.findMany({
+    return this.context.prisma.project.findMany({
       where,
       include: {
         user: true,
@@ -139,5 +150,4 @@ export class ProjectService {
   }
 }
 
-// Экспорт синглтона
-export const projectService = new ProjectService();
+// Экспорт синглтона (legacy) — создаётся через глобальный контекст при необходимости позже

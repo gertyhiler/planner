@@ -8,7 +8,7 @@ function Main() {
     <ContentWrapper>
       <Title content="Входящие" icon={<InboxIcon />} />
       <div>
-        <Task />
+        <Task title="Test" />
       </div>
     </ContentWrapper>
   );

@@ -1,11 +1,26 @@
-// Database Client
-export { dbClient, DatabaseClient, type DatabaseType } from "./client";
+import type { DatabaseContext } from "./client";
+// Database DI helpers (no singletons)
+export { createPrismaClient, createDatabaseContext } from "./client";
+export type { DatabaseType } from "./client";
+export type { DatabaseContext } from "./client";
 
-// Services
-export { taskService, TaskService } from "./services/task-service";
-export { projectService, ProjectService } from "./services/project-service";
-export { areaService, AreaService } from "./services/area-service";
-export { userService, UserService } from "./services/user-service";
+// Services (classes only; singletons are deprecated in favor of DI)
+export { TaskService } from "./services/task-service";
+export { ProjectService } from "./services/project-service";
+export { AreaService } from "./services/area-service";
+export { UserService } from "./services/user-service";
+
+// Factory to create services from a prisma instance
+export function createServices(context: DatabaseContext) {
+  return {
+    taskService: new (require("./services/task-service").TaskService)(context),
+    projectService: new (require("./services/project-service").ProjectService)(
+      context
+    ),
+    areaService: new (require("./services/area-service").AreaService)(context),
+    userService: new (require("./services/user-service").UserService)(context),
+  } as const;
+}
 
 // Base Service
 export { BaseService } from "./services/base-service";
@@ -17,7 +32,7 @@ export type {
 } from "./services/base-service";
 
 // Sync
-export { syncManager, SyncManager } from "./sync/sync-manager";
+export { SyncManager } from "./sync/sync-manager";
 export type {
   SyncOperation,
   SyncResult,

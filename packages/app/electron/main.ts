@@ -1,4 +1,9 @@
 import { app, BrowserWindow, ipcMain } from "electron";
+import {
+  createPrismaClient,
+  createDatabaseContext,
+  createServices,
+} from "@planner/database";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -24,6 +29,7 @@ process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL
   : RENDERER_DIST;
 
 let win: BrowserWindow | null;
+let services: ReturnType<typeof createServices> | null = null;
 
 function createWindow() {
   win = new BrowserWindow({
@@ -109,3 +115,81 @@ ipcMain.handle("window-is-maximized", () => {
 });
 
 app.whenReady().then(createWindow);
+
+// Инициализация БД и сервисов после готовности приложения
+app.whenReady().then(async () => {
+  const userDataPath = app.getPath("userData");
+  const prisma = createPrismaClient(`file:${userDataPath}/planner.db`);
+  await prisma.$connect();
+  const context = createDatabaseContext(prisma);
+  services = createServices(context);
+
+  // IPC: задачи
+  ipcMain.handle("tasks:create", (_e, data) =>
+    services!.taskService.createTask(data)
+  );
+  ipcMain.handle("tasks:update", (_e, id, data) =>
+    services!.taskService.updateTask(id, data)
+  );
+  ipcMain.handle("tasks:delete", (_e, id) =>
+    services!.taskService.deleteTask(id)
+  );
+  ipcMain.handle("tasks:get", (_e, id) => services!.taskService.getTask(id));
+  ipcMain.handle("tasks:list", (_e, filters) =>
+    services!.taskService.getTasks(filters)
+  );
+  ipcMain.handle("tasks:convertToProject", (_e, taskId: string) =>
+    services!.taskService.convertTaskToProject(taskId)
+  );
+  ipcMain.handle("tasks:addTag", (_e, taskId: string, tagId: string) =>
+    services!.taskService.addTagToTask(taskId, tagId)
+  );
+  ipcMain.handle("tasks:removeTag", (_e, taskId: string, tagId: string) =>
+    services!.taskService.removeTagFromTask(taskId, tagId)
+  );
+  ipcMain.handle(
+    "tasks:checklist:add",
+    (_e, taskId: string, itemData: unknown) =>
+      services!.taskService.addChecklistItem(taskId, itemData)
+  );
+  ipcMain.handle(
+    "tasks:checklist:update",
+    (_e, itemId: string, itemData: unknown) =>
+      services!.taskService.updateChecklistItem(itemId, itemData)
+  );
+  ipcMain.handle("tasks:checklist:delete", (_e, itemId: string) =>
+    services!.taskService.deleteChecklistItem(itemId)
+  );
+
+  // IPC: проекты
+  ipcMain.handle("projects:create", (_e, data) =>
+    services!.projectService.createProject(data)
+  );
+  ipcMain.handle("projects:update", (_e, data) =>
+    services!.projectService.updateProject(data)
+  );
+  ipcMain.handle("projects:delete", (_e, id) =>
+    services!.projectService.deleteProject(id)
+  );
+  ipcMain.handle("projects:get", (_e, id) =>
+    services!.projectService.getProject(id)
+  );
+  ipcMain.handle("projects:list", (_e, filters) =>
+    services!.projectService.getProjects(filters)
+  );
+
+  // IPC: области
+  ipcMain.handle("areas:create", (_e, data) =>
+    services!.areaService.createArea(data)
+  );
+  ipcMain.handle("areas:update", (_e, id, data) =>
+    services!.areaService.updateArea(id, data)
+  );
+  ipcMain.handle("areas:delete", (_e, id) =>
+    services!.areaService.deleteArea(id)
+  );
+  ipcMain.handle("areas:get", (_e, id) => services!.areaService.getById(id));
+  ipcMain.handle("areas:list", (_e, userId, filters) =>
+    services!.areaService.getByUser(userId, filters)
+  );
+});

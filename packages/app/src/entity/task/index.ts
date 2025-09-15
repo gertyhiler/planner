@@ -1,1 +1,1 @@
-export { default as Task } from './task'
+export { Task } from "./ui/common/task";

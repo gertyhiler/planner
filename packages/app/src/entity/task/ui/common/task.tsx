@@ -3,10 +3,10 @@
 import * as React from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/shared/lib/utils";
-import { Checkbox } from "./checkbox";
+import { Checkbox } from "../../../../shared/ui/checkbox";
 import { Calendar } from "lucide-react";
 import clsx from "clsx";
-import { Badge, badgeVariants } from "./badge";
+import { Badge, badgeVariants } from "../../../../shared/ui/badge";
 
 interface Tag {
   id: string;

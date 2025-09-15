@@ -18,21 +18,21 @@
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio",
     "db:seed": "tsx prisma/seed.ts",
+    "test": "vitest run -c vitest.config.mts",
+    "test:watch": "vitest -c vitest.config.mts",
     "sync:generate": "tsx scripts/generate-sync.ts"
   },
   "dependencies": {
     "@planner/types": "workspace:*",
-    "@prisma/client": "^5.22.0",
+    "@prisma/client": "^6.16.1",
     "zod": "^4.1.1",
     "zod-prisma": "^0.5.4"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
-    "prisma": "^5.22.0",
+    "vitest": "^3.2.4",
+    "prisma": "^6.16.1",
     "typescript": "^5.7.2",
     "tsx": "^4.7.0"
-  },
-  "prisma": {
-    "schema": "prisma/schema.prisma"
   }
 }

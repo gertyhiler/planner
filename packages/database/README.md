@@ -35,48 +35,35 @@ packages/database/
 
 ## Использование в приложениях
 
+### DI-first (рекомендуется)
+
+```ts
+import {
+  createPrismaClient,
+  createDatabaseContext,
+  createServices,
+} from "@planner/database";
+
+const prisma = createPrismaClient("file:./planner.db"); // В Electron: file:${app.getPath('userData')}/planner.db
+const context = createDatabaseContext(prisma);
+const { taskService, projectService, areaService, userService } =
+  createServices(context);
+
+await prisma.$connect();
+```
+
+> Примечание: исторические синглтоны (`dbClient`, `syncManager`, сервисы) считаются устаревшими. Предпочитайте DI через `createServices`.
+
 ### Web приложение
 
 ```typescript
-import { taskService, dbClient } from "@planner/database";
-
-// Переключаемся на облачную БД
-dbClient.setDatabaseType("cloud");
-
-// Используем общую бизнес-логику
-const tasks = await taskService.getTasksByUser("user-id");
-const newTask = await taskService.createTask({
-  name: "Новая задача",
-  userId: "user-id",
-  priority: "HIGH",
-});
+// Используйте DI: создайте prisma и сервисы на стороне приложения
 ```
 
 ### Desktop/Mobile приложения
 
 ```typescript
-import { taskService, syncManager, dbClient } from "@planner/database";
-
-// Используем локальную БД
-dbClient.setDatabaseType("local");
-
-// Настраиваем синхронизацию
-syncManager.setConfig({
-  apiUrl: "http://localhost:3001/api",
-  autoSync: true,
-  syncInterval: 30000,
-});
-
-// Используем ту же бизнес-логику
-const tasks = await taskService.getTasksByUser("user-id");
-const newTask = await taskService.createTask({
-  name: "Новая задача",
-  userId: "user-id",
-  priority: "HIGH",
-});
-
-// Автоматическая синхронизация
-syncManager.startAutoSync();
+// Используйте DI и свой экземпляр SyncManager(context)
 ```
 
 ### Backend
@@ -292,7 +279,7 @@ export class TagService extends BaseService<
   TagFilters
 > {
   protected entityName = "Tag";
-  protected prismaModel = dbClient.client.tag;
+  protected prismaModel = context.prisma.tag;
 
   // Специфичная логика
   async getTagsByColor(color: string): Promise<Tag[]> {

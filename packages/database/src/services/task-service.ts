@@ -1,4 +1,4 @@
-import { dbClient } from "../client";
+import type { DatabaseContext } from "../client";
 import type { Task, Prisma } from "../../generated/client";
 import {
   BaseService,
@@ -59,7 +59,12 @@ export class TaskService extends BaseService<
   TaskFilters
 > {
   protected entityName = "Task";
-  protected prismaModel = dbClient.client.task;
+  protected prismaModel: Prisma.TaskDelegate;
+
+  constructor(context: DatabaseContext) {
+    super(context);
+    this.prismaModel = context.prisma.task;
+  }
 
   // Переопределяем базовые методы для специфичной логики задач
   async createTask(data: CreateTaskData): Promise<Task> {
@@ -69,7 +74,10 @@ export class TaskService extends BaseService<
     return this.create(data);
   }
 
-  async updateTask(id: string, data: Omit<UpdateTaskData, "id">): Promise<Task> {
+  async updateTask(
+    id: string,
+    data: Omit<UpdateTaskData, "id">
+  ): Promise<Task> {
     // Специфичная валидация для задач
     this.validateUpdateTaskData({ id, ...data });
 
@@ -277,6 +285,50 @@ export class TaskService extends BaseService<
     });
   }
 
+  // Миграция задачи в проект: создаём проект из данных задачи,
+  // переносим подзадачи в проект и помечаем исходную задачу как архивную
+  async convertTaskToProject(taskId: string) {
+    const task = await this.getTask(taskId);
+    if (!task) throw new Error("Task not found");
+
+    const project = await this.context.prisma.project.create({
+      data: {
+        name: task.name,
+        description: task.description || undefined,
+        color: null,
+        userId: task.userId,
+        version: 1,
+        lastSync: new Date(),
+      },
+    });
+
+    // Переносим подзадачи в проект
+    // Если нужен перенос подзадач, можно найти их напрямую
+    const subtasks = await this.context.prisma.task.findMany({
+      where: { parentTaskId: task.id },
+      select: { id: true },
+    });
+    if (subtasks.length > 0) {
+      await this.context.prisma.task.updateMany({
+        where: { parentTaskId: task.id },
+        data: { parentTaskId: null, projectId: project.id },
+      });
+    }
+
+    // Архивируем исходную задачу
+    await this.updateTask(task.id, { status: "ARCHIVED" });
+
+    // Логируем операции
+    await this.context.logSyncOperation(
+      project.id,
+      "Project",
+      "CREATE",
+      project
+    );
+
+    return project;
+  }
+
   // Методы для работы с подзадачами
   async getSubtasks(parentTaskId: string): Promise<Task[]> {
     return this.getTasks({ parentTaskId });
@@ -301,7 +353,7 @@ export class TaskService extends BaseService<
 
   // Методы для работы с тегами
   async addTagToTask(taskId: string, tagId: string): Promise<void> {
-    await dbClient.client.task.update({
+    await this.context.prisma.task.update({
       where: { id: taskId },
       data: {
         tags: {
@@ -312,7 +364,7 @@ export class TaskService extends BaseService<
   }
 
   async removeTagFromTask(taskId: string, tagId: string): Promise<void> {
-    await dbClient.client.task.update({
+    await this.context.prisma.task.update({
       where: { id: taskId },
       data: {
         tags: {
@@ -324,7 +376,7 @@ export class TaskService extends BaseService<
 
   // Методы для работы с чеклистами
   async addChecklistItem(taskId: string, itemData: any): Promise<any> {
-    return dbClient.client.checklistItem.create({
+    return this.context.prisma.checklistItem.create({
       data: {
         ...itemData,
         taskId,
@@ -333,18 +385,17 @@ export class TaskService extends BaseService<
   }
 
   async updateChecklistItem(itemId: string, itemData: any): Promise<any> {
-    return dbClient.client.checklistItem.update({
+    return this.context.prisma.checklistItem.update({
       where: { id: itemId },
       data: itemData,
     });
   }
 
   async deleteChecklistItem(itemId: string): Promise<void> {
-    await dbClient.client.checklistItem.delete({
+    await this.context.prisma.checklistItem.delete({
       where: { id: itemId },
     });
   }
 }
 
-// Экспорт синглтона
-export const taskService = new TaskService();
+// Экспорт синглтона (legacy) — создаётся через глобальный контекст при необходимости позже

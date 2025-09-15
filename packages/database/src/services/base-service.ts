@@ -1,4 +1,5 @@
-import { dbClient } from "../client";
+import type { PrismaClient } from "../../generated/client";
+import type { DatabaseContext } from "../client";
 
 export interface BaseEntity {
   id: string;
@@ -33,8 +34,13 @@ export abstract class BaseService<
   UpdateData extends UpdateEntityData,
   Filters extends EntityFilters,
 > {
+  protected readonly context: DatabaseContext;
   protected abstract entityName: string;
   protected abstract prismaModel: any;
+
+  constructor(context: DatabaseContext) {
+    this.context = context;
+  }
 
   async create(data: CreateData): Promise<T> {
     const entity = await this.prismaModel.create({
@@ -47,7 +53,7 @@ export abstract class BaseService<
     });
 
     // Логируем операцию для синхронизации
-    await dbClient.logSyncOperation(
+    await this.context.logSyncOperation(
       entity.id,
       this.entityName,
       "CREATE",
@@ -77,7 +83,7 @@ export abstract class BaseService<
     });
 
     // Логируем операцию для синхронизации
-    await dbClient.logSyncOperation(
+    await this.context.logSyncOperation(
       entity.id,
       this.entityName,
       "UPDATE",
@@ -107,7 +113,7 @@ export abstract class BaseService<
     });
 
     // Логируем операцию для синхронизации
-    await dbClient.logSyncOperation(id, this.entityName, "DELETE", {
+    await this.context.logSyncOperation(id, this.entityName, "DELETE", {
       id,
       isDeleted: true,
     });

@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@base-ui-components/react": "1.0.0-beta.2",
+    "@planner/database": "workspace:*",
     "@planner/sdk": "workspace:*",
     "@planner/types": "workspace:*",
     "@radix-ui/react-slot": "^1.1.0",
