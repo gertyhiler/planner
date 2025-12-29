@@ -104,3 +104,5 @@ dist-electron/
 
 # Prisma
 prisma/migrations/
+**/generated/**
+*.map
