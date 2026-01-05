@@ -1,38 +1,46 @@
 {
-  "name": "@planner/database",
-  "version": "0.1.0",
-  "private": true,
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "prisma",
-    "generated"
-  ],
-  "scripts": {
-    "build": "tsc",
-    "dev": "tsc --watch",
-    "clean": "rm -rf dist",
-    "db:generate": "prisma generate",
-    "db:push": "prisma db push",
-    "db:migrate": "prisma migrate dev",
-    "db:studio": "prisma studio",
-    "db:seed": "tsx prisma/seed.ts",
-    "test": "vitest run -c vitest.config.mts",
-    "test:watch": "vitest -c vitest.config.mts",
-    "sync:generate": "tsx scripts/generate-sync.ts"
-  },
-  "dependencies": {
-    "@planner/types": "workspace:*",
-    "@prisma/client": "^6.16.1",
-    "zod": "^4.1.1",
-    "zod-prisma": "^0.5.4"
-  },
-  "devDependencies": {
-    "@types/node": "^20.0.0",
-    "vitest": "^3.2.4",
-    "prisma": "^6.16.1",
-    "typescript": "^5.7.2",
-    "tsx": "^4.7.0"
-  }
+	"name": "@planner/database",
+	"version": "0.1.0",
+	"private": true,
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"module": "dist/index.js",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"require": "./dist/index.js"
+		}
+	},
+	"files": [
+		"dist",
+		"prisma",
+		"generated"
+	],
+	"scripts": {
+		"build": "tsc",
+		"dev": "tsc --watch",
+		"clean": "rm -rf dist",
+		"db:generate": "DATABASE_URL=\"file:./prisma/database.db\" prisma generate",
+		"db:push": "DATABASE_URL=\"file:./prisma/database.db\" prisma db push",
+		"db:migrate": "DATABASE_URL=\"file:./prisma/database.db\" prisma migrate dev",
+		"db:studio": "DATABASE_URL=\"file:./prisma/database.db\" prisma studio",
+		"db:seed": "DATABASE_URL=\"file:./prisma/database.db\" tsx prisma/seed.ts",
+		"test": "vitest run -c vitest.config.mts",
+		"test:watch": "vitest -c vitest.config.mts",
+		"sync:generate": "tsx scripts/generate-sync.ts"
+	},
+	"dependencies": {
+		"@planner/types": "workspace:*",
+		"@prisma/client": "^6.16.1",
+		"zod": "^4.1.1",
+		"zod-prisma": "^0.5.4"
+	},
+	"devDependencies": {
+		"@types/node": "^20.0.0",
+		"vitest": "^3.2.4",
+		"prisma": "^6.16.1",
+		"typescript": "^5.7.2",
+		"tsx": "^4.7.0"
+	}
 }
